@@ -101,25 +101,32 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         with conn:
             print(f"Got conn from {address}/nthe conn is using TLS")
             
-            r = RandomWords()
-            random_word = r.get_random_word()
+            action = "decrypt"
             
-            mysql_insert_random_word(random_word)
+            if action == "encrypt":
+                
+                r = RandomWords()
+                random_word = r.get_random_word()
+                
+                mysql_insert_random_word(random_word)
+                
+                the_word = mysql_retrieve_last_word()
+                aes_key = generate_aes_key_from_secret(the_word)
+                
+                aes_key_encrypt_by_RSA = encrypt_aes_key_with_rsa(aes_key)
+                save_encrypted_key_to_db(aes_key_encrypt_by_RSA)
+                
+                conn.sendall(aes_key + b"__END__")
             
-            the_word = mysql_retrieve_last_word()
-            aes_key = generate_aes_key_from_secret(the_word)
-            
-            aes_key_encrypt_by_RSA = encrypt_aes_key_with_rsa(aes_key)
-            save_encrypted_key_to_db(aes_key_encrypt_by_RSA)
-            
-            conn.sendall(aes_key + b"__END__")
+            elif action == "decrypt":
+                
             
             
             # נשלח ללקוח אם אני רוצה שהוא יצפין או יפענח
             # צריך לשנות ידנית כל פעם אם רוצים שהוא יצפין או יפענח
             # For it to encrypt, you need to write to the variable "action" the value "encrypt" 
             # For it to decrypt, you need to write to the variable "action" the value "decrypt"
-            action = "decrypt"
+            
             if action == "encrypt" or action == "decrypt":
                 conn.sendall(action.encode())
                 conn.sendall(b"__END__")
