@@ -130,7 +130,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         with conn:
             print(f"Got conn from {address}/nthe conn is using TLS")
             
-            action = "decrypt"
+            action = "encrypt"
             
             if action == "encrypt":
                 
