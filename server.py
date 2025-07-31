@@ -38,7 +38,24 @@ def mysql_insert_random_word(word):
     
     cursor.close()
     sql_conn.close()
-    
+
+def save_encrypted_key_to_db(encrypted_key_b64):
+    conn = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="Galking22!!!",
+        database="my_server_trojan"
+    )
+    cursor = conn.cursor()
+
+    cursor.execute("INSERT INTO encrypted_keys (encrypted_key) VALUES (%s)", (encrypted_key_b64,))
+    conn.commit()
+
+    print("Encrypted AES key has been saved successfully")
+
+    cursor.close()
+    conn.close()
+
 def mysql_retrieve_last_word():
     conn = mysql.connector.connect(
         host="localhost",
@@ -90,22 +107,7 @@ def encrypt_aes_key_with_rsa(aes_key):
     # מקודד את הפלט לבייס64 לצורך שמירה כטקסט
     return base64.b64encode(encrypted_key).decode()
 
-def save_encrypted_key_to_db(encrypted_key_b64):
-    conn = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="Galking22!!!",
-        database="my_server_trojan"
-    )
-    cursor = conn.cursor()
 
-    cursor.execute("INSERT INTO encrypted_keys (encrypted_key) VALUES (%s)", (encrypted_key_b64,))
-    conn.commit()
-
-    print("Encrypted AES key has been saved successfully")
-
-    cursor.close()
-    conn.close()
     
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST,PORT))
