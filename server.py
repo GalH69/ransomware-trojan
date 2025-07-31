@@ -107,6 +107,9 @@ def encrypt_aes_key_with_rsa(aes_key):
     # מקודד את הפלט לבייס64 לצורך שמירה כטקסט
     return base64.b64encode(encrypted_key).decode()
 
+def decrypt_RSA_from_AES_key():
+    with open("server_RSA_private.pem", "rb") as f:
+        private_key = RSA.import_key(f.read())
 
     
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -139,7 +142,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             
             elif action == "decrypt":
                 encrypt_aes_key_by_rsa = mysql_retrieve_last_key()
-                
+
             
             # נשלח ללקוח אם אני רוצה שהוא יצפין או יפענח
             # צריך לשנות ידנית כל פעם אם רוצים שהוא יצפין או יפענח
