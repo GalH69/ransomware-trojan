@@ -107,11 +107,15 @@ def encrypt_aes_key_with_rsa(aes_key):
     # מקודד את הפלט לבייס64 לצורך שמירה כטקסט
     return base64.b64encode(encrypted_key).decode()
 
-def decrypt_RSA_from_AES_key():
+def decrypt_RSA_from_AES_key(encrypted_aes_key):
     with open("server_RSA_private.pem", "rb") as f:
         private_key = RSA.import_key(f.read())
 
     cipher_rsa = PKCS1_OAEP.new(private_key)
+    
+    aes_key = cipher_rsa.decrypt(encrypted_aes_key)
+    
+    return aes_key
 
     
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
