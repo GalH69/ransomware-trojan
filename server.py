@@ -136,7 +136,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 conn.sendall(aes_key + b"__END__")
             
             elif action == "decrypt":
-                encrypt_aes_key_by_rsa = 
+                encrypt_aes_key_by_rsa = mysql_retrieve_last_key()
             
             
             # נשלח ללקוח אם אני רוצה שהוא יצפין או יפענח
