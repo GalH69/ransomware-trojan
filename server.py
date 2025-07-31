@@ -111,6 +111,8 @@ def decrypt_RSA_from_AES_key():
     with open("server_RSA_private.pem", "rb") as f:
         private_key = RSA.import_key(f.read())
 
+    cipher_rsa = PKCS1_OAEP.new(private_key)
+
     
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST,PORT))
