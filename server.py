@@ -108,7 +108,7 @@ def encrypt_aes_key_with_rsa(aes_key):
     return base64.b64encode(encrypted_key).decode()
 
 def decrypt_RSA_from_AES_key():
-    with open("D:\python_programmers_clab\TROJAN_RANSOMEWARE\server_RSA_private.pem", "rb") as f:
+    with open("server_RSA_private.pem", "rb") as f:
         private_key = RSA.import_key(f.read())
 
     
