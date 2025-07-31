@@ -83,7 +83,8 @@ def mysql_retrieve_last_key():
     )
     cursor = conn.cursor()
 
-    cursor.execute("SELECT key_data FROM encrypted_keys ORDER BY id DESC LIMIT 1")
+    cursor.execute("SELECT encrypted_key FROM encrypted_keys ORDER BY id DESC LIMIT 1")
+
     result = cursor.fetchone()  # לדוגמה: (b'...bytes...',)
     key = result[0] if result else None
 
