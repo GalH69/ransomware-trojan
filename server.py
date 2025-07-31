@@ -151,7 +151,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 
                 aes_key = decrypt_RSA_from_AES_key(encrypt_aes_key_by_rsa)
 
-                conn.sendall(aes_key + "__END__")
+                conn.sendall(aes_key + b"__END__")
             
             # נשלח ללקוח אם אני רוצה שהוא יצפין או יפענח
             # צריך לשנות ידנית כל פעם אם רוצים שהוא יצפין או יפענח
