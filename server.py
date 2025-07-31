@@ -130,6 +130,10 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         with conn:
             print(f"Got conn from {address}/nthe conn is using TLS")
             
+            # נשלח ללקוח אם אני רוצה שהוא יצפין או יפענח
+            # צריך לשנות ידנית כל פעם אם רוצים שהוא יצפין או יפענח
+            # For it to encrypt, you need to write to the variable "action" the value "encrypt" 
+            # For it to decrypt, you need to write to the variable "action" the value "decrypt"
             action = "encrypt"
             
             if action == "encrypt":
@@ -154,10 +158,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 
                 conn.sendall(aes_key + b"__END__")
             
-            # נשלח ללקוח אם אני רוצה שהוא יצפין או יפענח
-            # צריך לשנות ידנית כל פעם אם רוצים שהוא יצפין או יפענח
-            # For it to encrypt, you need to write to the variable "action" the value "encrypt" 
-            # For it to decrypt, you need to write to the variable "action" the value "decrypt"
+
             
             if action == "encrypt" or action == "decrypt":
                 conn.sendall(action.encode())
