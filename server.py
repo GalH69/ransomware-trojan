@@ -159,7 +159,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 
                 conn.sendall(aes_key + b"__END__")
             
-
             
             if action == "encrypt" or action == "decrypt":
                 conn.sendall(action.encode())
