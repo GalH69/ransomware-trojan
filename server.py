@@ -66,7 +66,7 @@ def mysql_retrieve_last_word():
     cursor = conn.cursor()
 
     cursor.execute("SELECT word FROM random_words ORDER BY id DESC LIMIT 1")
-    result = cursor.fetchone()  # מחזיר טופל, לדוגמה: ('abcde...',)
+    result = cursor.fetchone()
     word = result[0]
 
     cursor.close()
