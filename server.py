@@ -119,56 +119,56 @@ def decrypt_RSA_from_AES_key(encrypted_aes_key):
     
     return aes_key
 
-    
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    s.bind((HOST,PORT))
-    s.listen(1)
-    
-    with context.wrap_socket(s, server_side=True) as secure_sock:
+def main():
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.bind((HOST,PORT))
+        s.listen(1)
         
-        conn, address = secure_sock.accept()
-        
-        with conn:
-            print(f"Got conn from {address}/nthe conn is using TLS")
+        with context.wrap_socket(s, server_side=True) as secure_sock:
             
-            # נשלח ללקוח אם אני רוצה שהוא יצפין או יפענח
-            # צריך לשנות ידנית כל פעם אם רוצים שהוא יצפין או יפענח
-            # For it to encrypt, you need to write to the variable "action" the value "encrypt" 
-            # For it to decrypt, you need to write to the variable "action" the value "decrypt"
-            action = "encrypt"
+            conn, address = secure_sock.accept()
             
-            if action == "encrypt":
+            with conn:
+                print(f"Got conn from {address}/nthe conn is using TLS")
                 
-                r = RandomWords()
-                random_word = r.get_random_word()
+                # נשלח ללקוח אם אני רוצה שהוא יצפין או יפענח
+                # צריך לשנות ידנית כל פעם אם רוצים שהוא יצפין או יפענח
+                # For it to encrypt, you need to write to the variable "action" the value "encrypt" 
+                # For it to decrypt, you need to write to the variable "action" the value "decrypt"
+                action = "encrypt"
                 
-                mysql_insert_random_word(random_word)
+                if action == "encrypt":
+                    
+                    r = RandomWords()
+                    random_word = r.get_random_word()
+                    
+                    mysql_insert_random_word(random_word)
+                    
+                    the_word = mysql_retrieve_last_word()
+                    aes_key = generate_aes_key_from_secret(the_word)
+                    
+                    aes_key_encrypt_by_RSA = encrypt_aes_key_with_rsa(aes_key)
+                    save_encrypted_key_to_db(aes_key_encrypt_by_RSA)
+                    
+                    conn.sendall(aes_key + b"__END__")
                 
-                the_word = mysql_retrieve_last_word()
-                aes_key = generate_aes_key_from_secret(the_word)
-                
-                aes_key_encrypt_by_RSA = encrypt_aes_key_with_rsa(aes_key)
-                save_encrypted_key_to_db(aes_key_encrypt_by_RSA)
-                
-                conn.sendall(aes_key + b"__END__")
-            
-            elif action == "decrypt":
-                encrypt_aes_key_by_rsa = mysql_retrieve_last_key()
-                
-                aes_key = decrypt_RSA_from_AES_key(encrypt_aes_key_by_rsa)
+                elif action == "decrypt":
+                    encrypt_aes_key_by_rsa = mysql_retrieve_last_key()
+                    
+                    aes_key = decrypt_RSA_from_AES_key(encrypt_aes_key_by_rsa)
 
-                conn.sendall(aes_key + b"__END__")
-            
-            
-            if action == "encrypt" or action == "decrypt":
-                conn.sendall(action.encode())
-                conn.sendall(b"__END__")
+                    conn.sendall(aes_key + b"__END__")
                 
-            answer = ""
-            while True:
-                answer = answer + conn.recv(1024).decode()
                 
-                if answer.endswith("__END__"):
-                    answer = answer.removesuffix("__END__")
-                    break
-            print(answer)
+                if action == "encrypt" or action == "decrypt":
+                    conn.sendall(action.encode())
+                    conn.sendall(b"__END__")
+                    
+                answer = ""
+                while True:
+                    answer = answer + conn.recv(1024).decode()
+                    
+                    if answer.endswith("__END__"):
+                        answer = answer.removesuffix("__END__")
+                        break
+                print(answer)
