@@ -130,10 +130,9 @@ def main():
             
             with conn:
                 print(f"Got conn from {address}/nthe conn is using TLS")
-                
-                # נשלח ללקוח אם אני רוצה שהוא יצפין או יפענח
-                # צריך לשנות ידנית כל פעם אם רוצים שהוא יצפין או יפענח
-                # For it to encrypt, you need to write to the variable "action" the value "encrypt" 
+                # Send to the client whether I want it to encrypt or decrypt
+                # Need to change manually each time if we want it to encrypt or decrypt
+                # For it to encrypt, you need to write to the variable "action" the value "encrypt"
                 # For it to decrypt, you need to write to the variable "action" the value "decrypt"
                 action = "encrypt"
                 
