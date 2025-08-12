@@ -172,3 +172,6 @@ def main():
                         answer = answer.removesuffix("__END__")
                         break
                 print(answer)
+                
+if __name__ == "__main__":
+     main()
