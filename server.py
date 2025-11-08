@@ -119,7 +119,7 @@ def main():
                 # For it to decrypt, you need to write to the variable "action" the value "decrypt"
                 action = "encrypt"
                 
-                if action == "encrypt":
+                if action == "decrypt":
                     
                     r = RandomWords()
                     random_word = r.get_random_word()
