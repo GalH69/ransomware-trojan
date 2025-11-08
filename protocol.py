@@ -1,4 +1,4 @@
-END_MARKER = b"__END__"
+END_MARKER = "__END__"
 
 def send(sock, message: str):
     if not isinstance(message, str):
