@@ -111,7 +111,7 @@ def main():
                         break
                             
                             
-                action = ""
+                action = "decrypt"
                 while True:
                     action = action + secure_sock.recv(1024).decode()
                     
