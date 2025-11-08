@@ -139,17 +139,9 @@ def main():
                 
                 
                 if action == "encrypt" or action == "decrypt":
-                    conn.sendall(action.encode())
-                    conn.sendall(b"__END__")
+                    send(conn, action)
                     
-                answer = ""
-                while True:
-                    chunk = conn.recv(1024)
-                    answer = answer + chunk.decode()
-                    
-                    if answer.endswith("__END__"):
-                        answer = answer.removesuffix("__END__")
-                        break
+                answer = receive(conn)
                 print(answer)
                 
 if __name__ == "__main__":
