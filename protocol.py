@@ -1,22 +1,25 @@
 END_MARKER = "__END__"
-END_MARKER = END_MARKER.encode("utf-8")
 
-def send(sock, data: bytes | str):
-    if type(data) == str:
-        data = data.encode("utf-8")  # הופך טקסט לבייטים
-    elif type(data) != bytes :
-        raise ValueError("send() only accepts str or bytes")
+def send(sock, data):
+    if isinstance(data, str):
+        message = data + END_MARKER
+        sock.sendall(message.encode("utf-8"))
+    elif isinstance(data, bytes):
+        sock.sendall(data)
+    else:
+        raise ValueError("Only str or bytes are allowed in send()")
 
-    sock.sendall(data + END_MARKER)
-
-def receive(sock) -> bytes:
+def receive(sock, expect_bytes=False):
     buffer = b""
     while True:
         chunk = sock.recv(1024)
         if not chunk:
             break
         buffer += chunk
-        if buffer.endswith(END_MARKER):
+        if not expect_bytes and buffer.endswith(END_MARKER.encode("utf-8")):
             break
 
-    return buffer.removesuffix(END_MARKER)
+    if expect_bytes:
+        return buffer
+    else:
+        return buffer.decode("utf-8").removesuffix(END_MARKER)
