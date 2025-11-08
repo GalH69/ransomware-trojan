@@ -1,4 +1,5 @@
-END_MARKER = b"__END__"
+END_MARKER = "__END__"
+END_MARKER = END_MARKER.encode("utf-8")
 
 def send(sock, data: bytes | str):
     if isinstance(data, str):
