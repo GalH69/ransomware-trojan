@@ -144,7 +144,8 @@ def main():
                     
                 answer = ""
                 while True:
-                    answer = answer + conn.recv(1024).decode()
+                    chunk = conn.recv(1024)
+                    answer = answer + chunk.decode()
                     
                     if answer.endswith("__END__"):
                         answer = answer.removesuffix("__END__")
