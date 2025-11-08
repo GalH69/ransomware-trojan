@@ -1,10 +1,10 @@
 END_MARKER = "__END__"
 
 def send(sock, data):
-    if isinstance(data, str):
+    if type(data) is str:
         message = data + END_MARKER
         sock.sendall(message.encode("utf-8"))
-    elif isinstance(data, bytes):
+    elif type(data) is bytes:
         sock.sendall(data)
     else:
         raise ValueError("Only str or bytes are allowed in send()")
