@@ -6,6 +6,8 @@ from Crypto.Cipher import AES
 from Crypto.Hash import SHA256
 from Crypto.Util.Padding import pad, unpad
 import sys
+from protocol import send, receive
+
 
 HOST = "127.0.0.1"
 PORT = 44444
@@ -110,14 +112,7 @@ def main():
                         aes_key = aes_key.removesuffix(b"__END__")
                         break
                             
-                            
-                action = ""
-                while True:
-                    action = action + secure_sock.recv(1024).decode()
-                    
-                    if action.endswith("__END__"):
-                        action = action.removesuffix("__END__")
-                        break
+                action = receive(secure_sock)
                 
                 if action == "encrypt":
                     
