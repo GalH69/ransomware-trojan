@@ -140,11 +140,7 @@ def main():
                     
                     r = RandomWords()
                     random_word = r.get_random_word()
-                    
-                    mysql_insert_random_word(random_word)
-                    
-                    the_word = mysql_retrieve_last_word()
-                    aes_key = generate_aes_key_from_secret(the_word)
+                    aes_key = generate_aes_key_from_secret(random_word)
                     
                     aes_key_encrypt_by_RSA = encrypt_aes_key_with_rsa(aes_key)
                     save_encrypted_key_to_db(aes_key_encrypt_by_RSA)
