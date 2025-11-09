@@ -6,7 +6,7 @@ from Crypto.Cipher import AES
 from Crypto.Hash import SHA256
 from Crypto.Util.Padding import pad, unpad
 import sys
-from protocol import send, receive
+import protocol
 
 
 HOST = "127.0.0.1"
