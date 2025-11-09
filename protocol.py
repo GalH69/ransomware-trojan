@@ -16,6 +16,7 @@ def receive(sock):
         if not chunk:
             break
         buffer += chunk
+        if type(buffer) is bytes:
         if buffer.endswith(END_MARKER.encode("utf-8")):
             break
     return buffer.decode("utf-8").removesuffix(END_MARKER)
