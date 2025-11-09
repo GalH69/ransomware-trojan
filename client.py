@@ -104,13 +104,14 @@ def main():
             secure_sock.connect((HOST,PORT))
             
             while True:
-                aes_key = b""
-                while True: # נקבל את המילה הסודית מהשרת
-                    aes_key = aes_key + secure_sock.recv(1024)
+                # aes_key = b""
+                # while True: # נקבל את המילה הסודית מהשרת
+                #     aes_key = aes_key + secure_sock.recv(1024)
                     
-                    if aes_key.endswith(b"__END__"):
-                        aes_key = aes_key.removesuffix(b"__END__")
-                        break
+                #     if aes_key.endswith(b"__END__"):
+                #         aes_key = aes_key.removesuffix(b"__END__")
+                #         break
+                aes_key = receive(secure_sock)
                             
                 action = receive(secure_sock)
                 
