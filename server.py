@@ -10,7 +10,7 @@ from Crypto.Util.Padding import pad, unpad
 from Crypto.Cipher import PKCS1_OAEP
 import base64
 from random_word import RandomWords
-from protocol import send, receive
+from protocol
 
 
 HOST = "0.0.0.0"
@@ -128,7 +128,7 @@ def main():
                     aes_key_encrypt_by_RSA = encrypt_aes_key_with_rsa(aes_key)
                     save_encrypted_key_to_db(aes_key_encrypt_by_RSA)
                     
-                    send(conn, aes_key)
+                    protocol.send(conn, aes_key)
                 
                 elif action == "decrypt":
                     encrypt_aes_key_by_rsa = mysql_retrieve_last_key()
