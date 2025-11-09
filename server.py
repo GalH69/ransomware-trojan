@@ -128,7 +128,7 @@ def main():
                     aes_key_encrypt_by_RSA = encrypt_aes_key_with_rsa(aes_key)
                     save_encrypted_key_to_db(aes_key_encrypt_by_RSA)
                     
-                    conn.sendall(aes_key + b"__END__")
+                    send(conn, aes_key)
                 
                 elif action == "decrypt":
                     encrypt_aes_key_by_rsa = mysql_retrieve_last_key()
