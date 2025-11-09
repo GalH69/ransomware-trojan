@@ -19,5 +19,5 @@ def receive(sock):
         buffer += chunk
         if buffer.endswith(END_MARKER.encode("utf-8")):
             break
-    data = 
-    return buffer.decode("utf-8").removesuffix(END_MARKER)
+    data = buffer.decode("utf-8").removesuffix(END_MARKER)
+    return data
