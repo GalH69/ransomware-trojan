@@ -117,7 +117,7 @@ def main():
                 # Need to change manually each time if we want it to encrypt or decrypt
                 # For it to encrypt, you need to write to the variable "action" the value "encrypt"
                 # For it to decrypt, you need to write to the variable "action" the value "decrypt"
-                action = "encrypt"
+                action = "decrypt"
                 
                 if action == "encrypt":
                     
