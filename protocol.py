@@ -5,7 +5,8 @@ def send(sock, data):
         message = data + END_MARKER
         sock.sendall(message.encode("utf-8"))
     elif type(data) is bytes:
-        sock.sendall(data)
+        message = data + END_MARKER.encode()
+        sock.sendall(message)
     else:
         raise ValueError("Only str or bytes are allowed in send()")
 
