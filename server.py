@@ -139,9 +139,9 @@ def main():
                 
                 
                 if action == "encrypt" or action == "decrypt":
-                    send(conn, action)
+                    protocol.send(conn, action)
                     
-                answer = receive(conn).decode()
+                answer = protocol.receive(conn).decode()
                 print(answer)
                 
 if __name__ == "__main__":
