@@ -20,4 +20,4 @@ def receive(sock):
         if buffer.endswith(END_MARKER.encode("utf-8")):
             break
     data = buffer.removesuffix(END_MARKER.encode("utf-8"))
-    return data
+    return data #retern the data as binary
