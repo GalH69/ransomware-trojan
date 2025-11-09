@@ -12,6 +12,9 @@ import base64
 from random_word import RandomWords
 import protocol
 
+class  TrojanServer:
+    
+
 
 HOST = "0.0.0.0"
 PORT = 44444
