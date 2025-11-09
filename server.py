@@ -13,7 +13,8 @@ from random_word import RandomWords
 import protocol
 
 class  TrojanServer:
-    
+    def __init__(self, host, port, cert_file, key_file):
+        
 
 
 HOST = "0.0.0.0"
