@@ -135,7 +135,7 @@ def main():
                     
                     aes_key = decrypt_RSA_from_AES_key(encrypt_aes_key_by_rsa)
 
-                    conn.sendall(aes_key + b"__END__")
+                    protocol.send(conn, aes_key)
                 
                 
                 if action == "encrypt" or action == "decrypt":
