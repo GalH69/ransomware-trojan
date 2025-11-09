@@ -107,7 +107,7 @@ def main():
 
                 aes_key = receive(secure_sock)
                             
-                action = receive(secure_sock)
+                action = receive(secure_sock).decode("utf-8")
                 
                 if action == "encrypt":
                     
