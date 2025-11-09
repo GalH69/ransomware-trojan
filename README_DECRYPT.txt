@@ -1,8 +1,4 @@
 
-    🔒 All your files have been encrypted!
-    
-    To get the key and decrypt your files, you must contact us.
+    🔓 All your files have been decrypted!
 
-    Contact: hackers@example.com
-    Your victim ID: 142739ddd
-    
+    Your system is no longer encrypted and your files are back to normal.
