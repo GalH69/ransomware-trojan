@@ -46,7 +46,7 @@ class KeyManager:
         cipher = PKCS1_OAEP.new(pub)
         return base64.b64encode(cipher.encrypt(aes_key)).decode()
 
-    def decrypt_aes_key(self, enc_b64, private_key_path="server_RSA_private.pem"):
+    def decrypt_aes_key_with_rsa(self, enc_b64, private_key_path="server_RSA_private.pem"):
         with open(private_key_path, "rb") as f:
             priv = RSA.import_key(f.read())
         cipher = PKCS1_OAEP.new(priv)
@@ -113,7 +113,7 @@ class TrojanServer:
 
     def load_and_decrypt_key(self):
         encrypted_key = self.db.get_last_key()
-        aes_key = self.keys.decrypt_aes_key(encrypted_key)
+        aes_key = self.keys.decrypt_aes_key_with_rsa(encrypted_key)
         return aes_key
     
     
