@@ -11,7 +11,7 @@ from Crypto.Cipher import PKCS1_OAEP
 import base64
 from random_word import RandomWords
 import protocol
-action
+
 class  TrojanServer:
     def __init__(self, host, port, cert_file, key_file):
         self.host = host
