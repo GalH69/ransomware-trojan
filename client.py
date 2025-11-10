@@ -8,7 +8,7 @@ from Crypto.Util.Padding import pad, unpad
 import sys
 import protocol
 
-class Client:
+class TrojanClient:
     def __init__(self, host, port, folder):
         self.host = host
         self.port = port
@@ -74,5 +74,5 @@ class Client:
         
         
 if __name__ == "__main__":
-    client = Client("127.0.0.1", 44444, "D:/check")
+    client = TrojanClient("127.0.0.1", 44444, "D:/check")
     client.start()
