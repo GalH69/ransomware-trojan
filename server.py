@@ -19,6 +19,7 @@ class  TrojanServer:
         self.cert_path = cert_file
         self.key_path = key_file
         self.context = self._create_ssl_context()
+    
     def _create_ssl_context(self):
         context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
         context.load_cert_chain(certfile=self.cert_path, keyfile=self.key_path)
