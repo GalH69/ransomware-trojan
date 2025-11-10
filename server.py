@@ -34,7 +34,7 @@ class  TrojanServer:
                     print(f"Connection from {address} secured with TLS")
                     self.handle_client(conn, action)
 
-    def handle_client(self, conn, action):
+    def ב(self, conn, action):
         if action == "encrypt":
             aes_key = self.GENERATE_AES_KEY(conn)
         else:
