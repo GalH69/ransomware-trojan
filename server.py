@@ -104,5 +104,5 @@ class  TrojanServer:
 
 
 if __name__ == "__main__":
-    server = Server("0.0.0.0", 44444, "path/to/cert.pem", "path/to/key.pem")
+    server = TrojanServer("0.0.0.0", 44444, "path/to/cert.pem", "path/to/key.pem")
     server.start()
