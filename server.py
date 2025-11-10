@@ -16,8 +16,8 @@ class  TrojanServer:
     def __init__(self, host, port, cert_file, key_file):
         self.host = host
         self.port = port
-        self.cert_path = cert_path
-        self.key_path = key_path
+        self.cert_path = cert_file
+        self.key_path = key_file
         self.context = self._create_ssl_context()
     def _create_ssl_context(self):
         context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
