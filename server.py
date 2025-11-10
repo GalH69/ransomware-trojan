@@ -113,7 +113,7 @@ if __name__ == "__main__":
     PORT = 44444
     CERT = "path/to/cert.pem"
     KEY = "path/to/key.pem"
-    action = "encrypt"  # או decrypt
+    action = "encrypt"  # enter "encrypt" or " decrypt" manually
 
     conn = SocketConnection(HOST, PORT, CERT, KEY).wait_for_client()
     with conn:
