@@ -87,7 +87,7 @@ class TrojanServer:
     def __init__(self, action, conn):
         self.action = action
         self.conn = conn
-        self.db = DatabaseManager()
+        self.db = SQLDatabaseManager()
         self.keys = KeyManager()
 
     def run(self):
