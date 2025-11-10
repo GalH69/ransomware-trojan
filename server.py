@@ -56,7 +56,7 @@ class KeyManager:
         return RandomWords().get_random_word()
     
     
-class DatabaseManager:
+class SQLDatabaseManager:
     def __init__(self, db_name="my_server_trojan"):
         self.config = {
             "host": "localhost",
