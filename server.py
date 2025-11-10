@@ -24,7 +24,7 @@ class  TrojanServer:
         context.load_cert_chain(certfile=self.cert_path, keyfile=self.key_path)
         return context
     
-    def start(self):
+    def start(self, action):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.bind((self.host, self.port))
             s.listen(1)
