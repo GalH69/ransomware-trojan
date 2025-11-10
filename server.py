@@ -117,4 +117,4 @@ if __name__ == "__main__":
 
     conn = SocketConnection(HOST, PORT, CERT, KEY).wait_for_client()
     with conn:
-        TrojanServer(ACTION, conn).run()
+        TrojanServer(action, conn).run()
