@@ -104,5 +104,6 @@ class  TrojanServer:
 
 if __name__ == "__main__":
     action = "encrypt"  # "encrypt or "decrypt" - set this manually
+    
     server = TrojanServer("0.0.0.0", 44444, "path/to/cert.pem", "path/to/key.pem")
-    server.start()
+    server.start(action)
