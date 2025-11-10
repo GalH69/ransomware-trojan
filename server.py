@@ -49,7 +49,7 @@ class  TrojanServer:
         from random_word import RandomWords
         r = RandomWords()
         random_word = r.get_random_word()
-        aes_key = self.generate_aes_key_from_secret(random_word)
+        aes_key = self.generate_aes_key_from_secret_word(random_word)
         encrypted_key = self.encrypt_aes_key_with_rsa(aes_key)
         self.save_encrypted_key_to_db(encrypted_key)
         protocol.send(conn, aes_key)
@@ -62,7 +62,7 @@ class  TrojanServer:
         return aes_key
 
     # פונקציות עזר הקשורות ל-DB ו-RSA/AES
-    def generate_aes_key_from_secret(self, secret):
+    def generate_aes_key_from_secret_word(self, secret):
         hasher = SHA256.new()
         hasher.update(secret.encode())
         return hasher.digest()
