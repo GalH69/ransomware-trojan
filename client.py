@@ -121,5 +121,5 @@ class TrojanClient:
 
 
 if __name__ == "__main__":
-    client = TrojanClient("127.0.0.1", 44444, r"D:\check")
+    client = TrojanClient("127.0.0.1", 44444, "D:\check")
     client.connect()
