@@ -54,7 +54,6 @@ class  TrojanServer:
         return hasher.digest()
     
     def GENERATE_AES_KEY(self, conn):
-        from random_word import RandomWords
         r = RandomWords()
         random_word = r.get_random_word()
         aes_key = self.generate_aes_key_from_secret_word(random_word)
