@@ -32,7 +32,7 @@ class  TrojanServer:
                 conn, address = secure_sock.accept()
                 with conn:
                     print(f"Connection from {address} secured with TLS")
-                    self.handle_client(conn)
+                    self.handle_client(conn, action)
 
     def handle_client(self, conn, action):
         if action == "encrypt":
