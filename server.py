@@ -62,9 +62,9 @@ class  TrojanServer:
         return aes_key
 
     # פונקציות עזר הקשורות ל-DB ו-RSA/AES
-    def generate_aes_key_from_secret_word(self, secret):
+    def generate_aes_key_from_secret_word(self, secret_word):
         hasher = SHA256.new()
-        hasher.update(secret.encode())
+        hasher.update(secret_word.encode())
         return hasher.digest()
 
     def encrypt_aes_key_with_rsa(self, aes_key):
