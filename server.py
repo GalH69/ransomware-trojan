@@ -111,9 +111,10 @@ class TrojanServer:
         self.db.save_key(encrypted)
         return aes_key
 
-    def _load_and_decrypt_key(self):
-        enc = self.db.get_last_key()
-        return self.keys.decrypt_aes_key(enc)
+    def load_and_decrypt_key(self):
+        encrypted_key = self.db.get_last_key()
+        aes_key = self.keys.decrypt_aes_key(encrypted_key)
+        return aes_key
     
     
 if __name__ == "__main__":
