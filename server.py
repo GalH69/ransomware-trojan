@@ -51,7 +51,7 @@ class  TrojanServer:
         hasher.update(secret_word.encode())
         return hasher.digest()
     
-    def _handle_encrypt(self, conn):
+    def Generate_Aes_Key(self, conn):
         from random_word import RandomWords
         r = RandomWords()
         random_word = r.get_random_word()
