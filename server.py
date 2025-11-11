@@ -104,14 +104,14 @@ class TrojanServer:
 
         print(decoded_data)
 
-    def generate_and_store_aes_key(self):
+    def generate_and_store_aes_key(self): #sadasdsadasdsaasd
         word = self.keys.get_random_word()
         aes_key = self.keys.generate_aes_key_from_secret_word(word)
         encrypted = self.keys.encrypt_aes_key_with_rsa(aes_key)
         self.db.save_key(encrypted)
         return aes_key
 
-    def load_and_decrypt_key(self):
+    def load_aes_key_from_database(self): #sadsadsadasdasdasd
         encrypted_key = self.db.get_last_key()
         aes_key = self.keys.decrypt_aes_key_with_rsa(encrypted_key)
         return aes_key
