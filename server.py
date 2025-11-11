@@ -65,7 +65,7 @@ class SQLDatabaseManager:
             "database": db_name
         }
 
-    def save_key(self, key_b64):
+    def save_aes_key_in_database(self, key_b64):
         conn = mysql.connector.connect(**self.config)
         cursor = conn.cursor()
         cursor.execute("INSERT INTO encrypted_keys (encrypted_key) VALUES (%s)", (key_b64,))
