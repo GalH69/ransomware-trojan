@@ -106,7 +106,7 @@ class TrojanServer:
 
     def generate_and_store_key(self):
         word = self.keys.get_random_word()
-        aes_key = self.keys.derive_key_from_word(word)
+        aes_key = self.keys.generate_aes_key_from_secret_word(word)
         encrypted = self.keys.encrypt_aes_key_with_rsa(aes_key)
         self.db.save_key(encrypted)
         return aes_key
