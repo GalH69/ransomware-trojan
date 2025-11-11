@@ -35,7 +35,7 @@ class SecureSocketServer:
                 return conn
             
 class KeyManager:
-    def derive_key_from_word(self, word):
+    def generate_aes_key_from_secret_word(self, word):
         hasher = SHA256.new()
         hasher.update(word.encode())
         return hasher.digest()
