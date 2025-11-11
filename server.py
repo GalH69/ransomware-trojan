@@ -25,7 +25,7 @@ class SecureSocketServer:
         ctx.load_cert_chain(certfile=self.cert, keyfile=self.key)
         return ctx
 
-    def wait_for_client(self):
+    def accept_client(self):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             sock.bind((self.host, self.port))
             sock.listen(1)
@@ -124,6 +124,6 @@ if __name__ == "__main__":
     KEY = "path/to/key.pem"
     action = "encrypt"  # enter "encrypt" or " decrypt" manually
 
-    conn = SecureSocketServer(HOST, PORT, CERT, KEY).wait_for_client()
+    conn = SecureSocketServer(HOST, PORT, CERT, KEY).accept_client()
     with conn:
         TrojanServer(action, conn).run()
