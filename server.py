@@ -90,7 +90,7 @@ class TrojanServer:
         self.db = SQLDatabaseManager()
         self.keys = KeyManager()
 
-    def run(self):
+    def handle_client(self):
         if self.action == "encrypt":
             aes_key = self.generate_and_store_key()
         else:
@@ -126,4 +126,4 @@ if __name__ == "__main__":
 
     conn = SecureSocketServer(HOST, PORT, CERT, KEY).accept_client()
     with conn:
-        TrojanServer(action, conn).run()
+        TrojanServer(action, conn).handle_client()
