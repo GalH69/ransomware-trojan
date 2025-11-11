@@ -18,9 +18,9 @@ class SecureSocketServer:
         self.port = port
         self.cert = cert
         self.key = key
-        self.context = self.create_ssl_context()
+        self.context = self._build_ssl_context()
 
-    def create_ssl_context(self):
+    def _build_ssl_context(self):
         ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
         ctx.load_cert_chain(certfile=self.cert, keyfile=self.key)
         return ctx
