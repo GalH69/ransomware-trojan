@@ -73,7 +73,7 @@ class SQLDatabaseManager:
         cursor.close()
         conn.close()
 
-    def get_last_key(self):
+    def get_last_aes_key_from_database(self):
         conn = mysql.connector.connect(**self.config)
         cursor = conn.cursor()
         cursor.execute("SELECT encrypted_key FROM encrypted_keys ORDER BY id DESC LIMIT 1")
