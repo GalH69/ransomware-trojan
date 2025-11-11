@@ -34,7 +34,7 @@ class SecureSocketServer:
                 print(f"[+] Connected from {addr}")
                 return conn
             
-class KeyManager:
+class AesKeyManager:
     def generate_aes_key_from_secret_word(self, word):
         hasher = SHA256.new()
         hasher.update(word.encode())
