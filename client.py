@@ -16,7 +16,7 @@ class SecureSocketClient:
         self.port = port
         self.context = ssl._create_unverified_context()
 
-    def connect(self):
+    def connect_tls_socket(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         secure_sock = self.context.wrap_socket(sock, server_hostname="anything")
         secure_sock.connect((self.host, self.port))
@@ -106,7 +106,7 @@ class TrojanClient:
 
     def __init__(self, host, port, folder):
         self.folder = folder
-        self.connection = SecureSocketClient(host, port).connect()
+        self.connection = SecureSocketClient(host, port).connect_tls_socket()
 
     def handle_server(self):
         aes_key = protocol.receive(self.connection)
