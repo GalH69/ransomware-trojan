@@ -83,7 +83,7 @@ class RansomNote:
         🔒 All your files have been encrypted!
         
         To get the key and decrypt your files, contact us.
-        Contact: hackers@example.com
+        hackers@example.com
         """
         with open("README_DECRYPT.txt", "w", encoding="utf-8") as f:
             f.write(note)
