@@ -90,7 +90,7 @@ class RansomNote:
         os.system("notepad README_DECRYPT.txt")
 
     @staticmethod
-    def display_decryption_note()
+    def display_decryption_note():
         note = """
         🔓 All your files have been decrypted!
         Your system is restored and your files are back to normal.
