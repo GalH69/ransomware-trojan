@@ -26,13 +26,13 @@ class SecureSocketServer:
         BRODCAST_PORT = 44444
         brodcast_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         brodcast_sock.bind(("0.0.0.0", BRODCAST_PORT))
-        print("BRODCAST SERVER ESTABLISHED..")
+        print("Broadcast server started on port", BRODCAST_PORT)
         
-        msg, addr = brodcast_sock.recvfrom(1024)
-
-        if msg.decode() == "DISCOVER_SERVER":
-            print("Discovery from", addr)
-            brodcast_sock.sendto(b"SERVER_HERE", addr)
+        while True:
+            msg, addr = brodcast_sock.recvfrom(1024)
+            if msg.decode() == "DISCOVER_SERVER":
+                print("Discovery from", addr)
+                brodcast_sock.sendto(b"SERVER_HERE", addr)
 
 
     def _build_ssl_context(self):
