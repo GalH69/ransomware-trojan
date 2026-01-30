@@ -17,7 +17,7 @@ class SecureSocketClient:
         self.context = ssl._create_unverified_context()
 
 
-    def find_server_address(brodcast_port):
+    def find_server_address(self, brodcast_port):
         discovery = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         discovery.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST,1)
 
