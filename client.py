@@ -24,7 +24,8 @@ class SecureSocketClient:
         discovery.sendto(b"DISCOVER_SERVER",("255.255.255.255",brodcast_port))
 
         msg,server_addr = discovery.recvfrom(1024)
-        return server_addr
+        host = server_addr[0]
+        return host
     
     def connect_tls_socket(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
