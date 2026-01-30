@@ -145,9 +145,5 @@ if __name__ == "__main__":
     
     with conn:
         
-    
-    
-    
-
     client = TrojanClient(FOLDER)
     client.handle_server()
