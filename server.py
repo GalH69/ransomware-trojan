@@ -145,8 +145,6 @@ if __name__ == "__main__":
     threading.Thread(target=server.listen_to_brodcast_requests, daemon=True).start()
     
     conn = server.accept_client()
-
-    conn.accept_client()
     
     with conn:
         TrojanServer(action, conn).handle_client()
