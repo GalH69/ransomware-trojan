@@ -12,7 +12,6 @@ class SecureSocketClient:
     # מחלקה שאחראית רק על יצירת socket עם TLS
 
     def __init__(self):
-
         self.context = ssl._create_unverified_context()
 
 
