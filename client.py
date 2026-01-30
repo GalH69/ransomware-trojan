@@ -11,9 +11,8 @@ import protocol
 class SecureSocketClient:
     # מחלקה שאחראית רק על יצירת socket עם TLS
 
-    def __init__(self, host, port):
-        self.host = host
-        self.port = port
+    def __init__(self):
+
         self.context = ssl._create_unverified_context()
 
 
