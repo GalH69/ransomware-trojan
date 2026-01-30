@@ -19,6 +19,17 @@ class SecureSocketServer:
         self.key = key
         self.context = self._build_ssl_context()
 
+    def listen_to_brodcast_requests():
+        brodcast_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        brodcast_sock.bind((HOST, BRODCAST_PORT))
+        print("BRODCAST SERVER ESTABLISHED..")
+        
+        msg, addr = brodcast_sock.recvfrom(1024)
+
+        if msg.decode() == "DISCOVER_SERVER":
+            print("Discovery from", addr)
+            brodcast_sock.sendto(b"SERVER_HERE", addr)
+
     def _build_ssl_context(self):
         ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
         ctx.load_cert_chain(certfile=self.cert, keyfile=self.key)
@@ -127,21 +138,3 @@ if __name__ == "__main__":
     conn = SecureSocketServer(HOST, PORT, CERT, KEY).accept_client()
     with conn:
         TrojanServer(action, conn).handle_client()
-        
-        
-        
-
-
-
-
-#server
-# def listen_to_brodcast_requests():
-#     brodcast_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-#     brodcast_sock.bind((HOST, BRODCAST_PORT))
-#     print("BRODCAST SERVER ESTABLISHED..")
-    
-#     msg, addr = brodcast_sock.recvfrom(1024)
-
-#     if msg.decode() == "DISCOVER_SERVER":
-#         print("Discovery from", addr)
-#         brodcast_sock.sendto(b"SERVER_HERE", addr)
