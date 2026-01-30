@@ -130,7 +130,7 @@ if __name__ == "__main__":
         
         
         
-        
+#client
 # def find_server_address(brodcast_port):
 #     discovery = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 #     discovery.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST,1)
@@ -139,3 +139,17 @@ if __name__ == "__main__":
 
 #     msg,server_addr = discovery.recvfrom(1024)
 #     return server_addr
+
+
+
+#server
+# def listen_to_brodcast_requests():
+#     brodcast_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+#     brodcast_sock.bind((HOST, BRODCAST_PORT))
+#     print("BRODCAST SERVER ESTABLISHED..")
+    
+#     msg, addr = brodcast_sock.recvfrom(1024)
+
+#     if msg.decode() == "DISCOVER_SERVER":
+#         print("Discovery from", addr)
+#         brodcast_sock.sendto(b"SERVER_HERE", addr)
