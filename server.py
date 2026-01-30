@@ -13,10 +13,11 @@ import protocol
 
 class SecureSocketServer:
     def __init__(self, cert, key):
-        addr = self.listen_to_brodcast_requests()
-        
         self.cert = cert
         self.key = key
+        
+        addr = self.listen_to_brodcast_requests()
+        
         self.context = self._build_ssl_context()
 
     def listen_to_brodcast_requests():
