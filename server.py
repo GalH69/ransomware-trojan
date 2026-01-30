@@ -12,9 +12,9 @@ from random_word import RandomWords
 import protocol
 
 class SecureSocketServer:
-    def __init__(self, host, port, cert, key):
-        self.host = host
-        self.port = port
+    def __init__(self, cert, key):
+        addr = self.listen_to_brodcast_requests()
+        
         self.cert = cert
         self.key = key
         self.context = self._build_ssl_context()
