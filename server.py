@@ -25,7 +25,7 @@ class SecureSocketServer:
     def listen_to_brodcast_requests(self):
         BRODCAST_PORT = 44444
         brodcast_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        brodcast_sock.bind((HOST, BRODCAST_PORT))
+        brodcast_sock.bind(("0.0.0.0", BRODCAST_PORT))
         print("BRODCAST SERVER ESTABLISHED..")
         
         msg, addr = brodcast_sock.recvfrom(1024)
