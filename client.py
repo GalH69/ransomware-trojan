@@ -113,7 +113,7 @@ class TrojanClient:
 
     def __init__(self, host, port, folder):
         self.folder = folder
-        self.connection = SecureSocketClient(host, port).connect_tls_socket()
+        self.connection = SecureSocketClient().connect_tls_socket()
 
     def handle_server(self):
         aes_key = protocol.receive(self.connection)
