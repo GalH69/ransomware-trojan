@@ -16,6 +16,16 @@ class SecureSocketClient:
         self.port = port
         self.context = ssl._create_unverified_context()
 
+
+    def find_server_address(brodcast_port):
+        discovery = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        discovery.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST,1)
+
+        discovery.sendto(b"DISCOVER_SERVER",("255.255.255.255",brodcast_port))
+
+        msg,server_addr = discovery.recvfrom(1024)
+        return server_addr
+    
     def connect_tls_socket(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         secure_sock = self.context.wrap_socket(sock, server_hostname="anything")
