@@ -20,6 +20,7 @@ class SecureSocketServer:
         self.context = self._build_ssl_context()
 
     def listen_to_brodcast_requests():
+        BRODCAST_PORT = 44444
         brodcast_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         brodcast_sock.bind((HOST, BRODCAST_PORT))
         print("BRODCAST SERVER ESTABLISHED..")
