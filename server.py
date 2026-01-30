@@ -30,6 +30,7 @@ class SecureSocketServer:
         if msg.decode() == "DISCOVER_SERVER":
             print("Discovery from", addr)
             brodcast_sock.sendto(b"SERVER_HERE", addr)
+        return addr
 
     def _build_ssl_context(self):
         ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
