@@ -13,6 +13,7 @@ class SecureSocketClient:
 
     def __init__(self):
         self.host = self.find_server_address(44444)
+        self.port = 44444
         self.context = ssl._create_unverified_context()
 
 
