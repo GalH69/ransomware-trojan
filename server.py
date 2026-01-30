@@ -142,5 +142,6 @@ if __name__ == "__main__":
 
     conn = SecureSocketServer(CERT, KEY).accept_client()
     conn.listen_to_brodcast_requests()
+    
     with conn:
         TrojanServer(action, conn).handle_client()
