@@ -16,7 +16,7 @@ class SecureSocketServer:
         self.cert = cert
         self.key = key
         
-        addr = self.listen_to_brodcast_requests()
+        self.addr = self.listen_to_brodcast_requests()
         
         self.context = self._build_ssl_context()
 
