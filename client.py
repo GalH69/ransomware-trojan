@@ -138,8 +138,6 @@ class TrojanClient:
 
 
 if __name__ == "__main__":
-    HOST = "127.0.0.1"
-    PORT = 44444
     FOLDER = "D:\check"
 
     SecureSocketClient()
