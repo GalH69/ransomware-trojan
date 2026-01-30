@@ -130,15 +130,7 @@ if __name__ == "__main__":
         
         
         
-#client
-# def find_server_address(brodcast_port):
-#     discovery = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-#     discovery.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST,1)
 
-#     discovery.sendto(b"DISCOVER_SERVER",("255.255.255.255",brodcast_port))
-
-#     msg,server_addr = discovery.recvfrom(1024)
-#     return server_addr
 
 
 
