@@ -119,6 +119,9 @@ class TrojanServer:
         # decoded_data = data.decode()
 
         # print(decoded_data)
+        
+        aes_key = self.generate_and_store_aes_key()
+
 
     def generate_and_store_aes_key(self):
         word = self.keys.get_random_word()
