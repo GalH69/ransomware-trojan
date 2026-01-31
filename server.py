@@ -164,7 +164,7 @@ class TrojanServer:
         msg = protocol.receive(self.conn)
         decoded_msg = msg.decode()
         print(decoded_msg)
-        
+    
     
     
 if __name__ == "__main__":
