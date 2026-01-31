@@ -146,6 +146,7 @@ class TrojanClient:
         msg = protocol.receive(self.connection)
         msg_decode = msg.decode()
         if (msg_decode == "sending decryption key"):
+            aes_key
 
 
 
