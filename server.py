@@ -127,9 +127,9 @@ class TrojanServer:
         decoded_data = data.decode()
         print(decoded_data)
         
-        has_payed = False
-        while(not has_payed):
-            
+        has_payed = 'n'
+        while(has_payed):
+            has_payed
 
 
 
