@@ -127,9 +127,9 @@ class TrojanServer:
         decoded_data = data.decode()
         print(decoded_data)
         
-        has_payed = 'n'
-        while(has_payed):
-            has_payed
+        has_payed = "no"
+        while(has_payed == "no"):
+            has_payed = input("enter ")
 
 
 
