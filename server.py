@@ -153,9 +153,6 @@ class TrojanServer:
         print(decoded_msg)
         
 
-
-
-
     def _generate_and_store_aes_key(self):
         word = self.keys._get_random_word()
         aes_key = self.keys._generate_aes_key_from_secret_word(word)
