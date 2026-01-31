@@ -126,6 +126,9 @@ class TrojanServer:
         data = protocol.receive(self.conn)
         decoded_data = data.decode()
         print(decoded_data)
+        
+        has_
+        while(has payed)
 
 
 
