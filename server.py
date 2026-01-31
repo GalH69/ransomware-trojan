@@ -129,7 +129,7 @@ class TrojanServer:
         
         has_payed = "no"
         while(has_payed == "no"):
-            has_payed = input("enter \"yes\" )
+            has_payed = input("enter \"yes\" for decription)
 
 
 
