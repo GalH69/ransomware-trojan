@@ -149,6 +149,7 @@ class TrojanServer:
         msg = protocol.receive(self.conn)
         decoded_msg = msg.decode()
         print(decoded_msg)
+        
     def Ispaid():
 
 
