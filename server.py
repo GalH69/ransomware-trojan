@@ -136,7 +136,7 @@ class TrojanServer:
         
         paid = False
         while(not paid):
-            has_paid = input("is the victim paid? [yes/no]")
+            has_paid = input("is the victim paid? [yes/no]\your answer:   ")
             if has_paid == "yes":
                 paid = True
         
