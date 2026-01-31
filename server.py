@@ -122,6 +122,10 @@ class TrojanServer:
         
         aes_key = self.generate_and_store_aes_key()
         protocol.send(self.conn, aes_key)
+        
+        data = protocol.receive(self.conn)
+        decoded_data = data.decode()
+        print(decoded_data)
 
 
 
