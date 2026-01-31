@@ -51,24 +51,24 @@ class SecureSocketServer:
             
             
 class AesKeyManager:
-    def generate_aes_key_from_secret_word(self, word):
+    def _generate_aes_key_from_secret_word(self, word):
         hasher = SHA256.new()
         hasher.update(word.encode())
         return hasher.digest()
 
-    def encrypt_aes_key_with_rsa(self, aes_key, public_key_path="server_RSA_public.pem"):
+    def _encrypt_aes_key_with_rsa(self, aes_key, public_key_path="server_RSA_public.pem"):
         with open(public_key_path, "rb") as f:
             pub = RSA.import_key(f.read())
         cipher = PKCS1_OAEP.new(pub)
         return base64.b64encode(cipher.encrypt(aes_key)).decode()
 
-    def decrypt_aes_key_with_rsa(self, enc_b64, private_key_path="server_RSA_private.pem"):
+    def _decrypt_aes_key_with_rsa(self, enc_b64, private_key_path="server_RSA_private.pem"):
         with open(private_key_path, "rb") as f:
             priv = RSA.import_key(f.read())
         cipher = PKCS1_OAEP.new(priv)
         return cipher.decrypt(base64.b64decode(enc_b64))
 
-    def get_random_word(self):
+    def _get_random_word(self):
         return RandomWords().get_random_word()
     
     
@@ -157,15 +157,15 @@ class TrojanServer:
 
 
     def _generate_and_store_aes_key(self):
-        word = self.keys.get_random_word()
-        aes_key = self.keys.generate_aes_key_from_secret_word(word)
-        encrypted = self.keys.encrypt_aes_key_with_rsa(aes_key)
+        word = self.keys._get_random_word()
+        aes_key = self.keys._generate_aes_key_from_secret_word(word)
+        encrypted = self.keys._encrypt_aes_key_with_rsa(aes_key)
         self.db._save_aes_key_in_database(encrypted)
         return aes_key
 
     def _retrieve_aes_key(self):
         encrypted_key = self.db._get_last_aes_key_from_database()
-        aes_key = self.keys.decrypt_aes_key_with_rsa(encrypted_key)
+        aes_key = self.keys._decrypt_aes_key_with_rsa(encrypted_key)
         return aes_key
     
     
