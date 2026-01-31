@@ -150,7 +150,7 @@ class TrojanServer:
         decoded_msg = msg.decode()
         print(decoded_msg)
         
-    def Ispaid():
+    def _is_paid():
 
 
 
