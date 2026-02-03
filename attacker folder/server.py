@@ -10,6 +10,8 @@ from Crypto.Cipher import PKCS1_OAEP
 import base64
 from random_word import RandomWords
 import threading
+import sys
+sys.path.append('../Shared')
 import protocol
 # asd
 class SecureSocketServer:
