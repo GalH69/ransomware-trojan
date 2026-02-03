@@ -9,7 +9,7 @@ def _recv_exact(sock, n):
             raise ConnectionError("Socket closed while receiving data")
         data += chunk
     return data
-# as
+
 
 def send(sock, data):
     """
