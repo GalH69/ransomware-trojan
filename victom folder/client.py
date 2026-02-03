@@ -5,8 +5,6 @@ import sys
 from Crypto.Random import get_random_bytes
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
-import sys
-sys.path.append('../Shared')
 import protocol
 
 class SecureSocketClient:
