@@ -13,7 +13,8 @@ import threading
 import sys
 sys.path.append('../Shared')
 import protocol
-# asd
+
+
 class SecureSocketServer:
     def __init__(self, cert, key):
         self.cert = cert
