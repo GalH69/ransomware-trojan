@@ -112,7 +112,10 @@ class RansomNote:
     
     @staticmethod
     def del_note():
+        file_name = "ANNOUNCEMENT.txt"
         
+        if os.path.exists(file_name):
+            os.remove(file_name)
 
 
 class TrojanClient:
