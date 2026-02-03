@@ -9,8 +9,6 @@ import sys
 sys.path.append('../Shared')
 import protocol
 
-# asd
-
 class SecureSocketClient:
     # מחלקה שאחראית רק על יצירת socket עם TLS
 
