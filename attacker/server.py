@@ -151,8 +151,8 @@ class TrojanServer:
 if __name__ == "__main__":
     HOST = "0.0.0.0"
     PORT = 44444
-    CERT = r"D:\Projects\TROJAN_RANSOMEWARE\attacker folder\cert.pem"
-    KEY = r"D:\Projects\TROJAN_RANSOMEWARE\attacker folder\key.pem"
+    CERT = r"D:\Projects\TROJAN_RANSOMEWARE\attacker\cert.pem"
+    KEY = r"D:\Projects\TROJAN_RANSOMEWARE\attacker\key.pem"
     
     action = "decrypt"  # enter "encrypt" or "decrypt" manually
 
