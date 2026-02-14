@@ -98,8 +98,8 @@ class RansomNote:
         """
         with open("ANNOUNCEMENT.txt", "w", encoding="utf-8") as f:
             f.write(note)
-        os.system("notepad ANNOUNCEMENT.txt")
-
+        os.system('start /b notepad ANNOUNCEMENT.txt')
+        
     @staticmethod
     def display_decryption_note():
         note = """
@@ -108,8 +108,8 @@ class RansomNote:
         """
         with open("ANNOUNCEMENT.txt", "w", encoding="utf-8") as f:
             f.write(note)
-        os.system("notepad ANNOUNCEMENT.txt")
-    
+        os.system('start /b notepad ANNOUNCEMENT.txt')
+        
     @staticmethod
     def del_note():
         file_name = "ANNOUNCEMENT.txt"
