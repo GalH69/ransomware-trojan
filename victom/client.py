@@ -98,7 +98,7 @@ class RansomNote:
         """
         with open("ANNOUNCEMENT.txt", "w", encoding="utf-8") as f:
             f.write(note)
-        os.system('start /b notepad ANNOUNCEMENT.txt')
+        os.startfile("ANNOUNCEMENT.txt")
         
     @staticmethod
     def display_decryption_note():
